@@ -1,0 +1,275 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "nama": "admin",
+      "fullname": "Administrator",
+      "pass": "admin123",
+      "role": "Admin",
+      "loginAt": 1780210642729
+    },
+    {
+      "id": 2,
+      "nama": "pegawai",
+      "fullname": "Pegawai RZP",
+      "pass": "rzp2025",
+      "role": "Pegawai",
+      "loginAt": 1780209524916
+    }
+  ],
+  "klien": [
+    {
+      "id": 1,
+      "nama": "PT Maju Bersama",
+      "alamat": "Jl. Sudirman No. 10",
+      "telp": "08123456789",
+      "email": "maju@email.com",
+      "cat": "Klien tetap"
+    },
+    {
+      "id": 2,
+      "nama": "CV Karya Mandiri",
+      "alamat": "Jl. Gatot Subroto No. 5",
+      "telp": "08987654321",
+      "email": "karya@email.com",
+      "cat": ""
+    },
+    {
+      "id": 3,
+      "nama": "Toko Budi Jaya",
+      "alamat": "Jl. Ahmad Yani No. 88",
+      "telp": "081234567890",
+      "email": "",
+      "cat": "Bayar tunai"
+    }
+  ],
+  "produk": [
+    {
+      "id": 1,
+      "nama": "Cetak Banner",
+      "desc": "Full color, laminasi glossy",
+      "harga": 35000,
+      "sat": "m²",
+      "kat": "Cetak"
+    },
+    {
+      "id": 2,
+      "nama": "Cetak Spanduk",
+      "desc": "Outdoor, anti UV",
+      "harga": 25000,
+      "sat": "m²",
+      "kat": "Cetak"
+    },
+    {
+      "id": 3,
+      "nama": "Desain Grafis",
+      "desc": "Desain materi promosi",
+      "harga": 150000,
+      "sat": "jam",
+      "kat": "Desain"
+    },
+    {
+      "id": 4,
+      "nama": "Pemasangan Banner",
+      "desc": "Termasuk rangka & baut",
+      "harga": 75000,
+      "sat": "titik",
+      "kat": "Pemasangan"
+    },
+    {
+      "id": 5,
+      "nama": "Neon Box",
+      "desc": "Custom ukuran, LED",
+      "harga": 500000,
+      "sat": "pcs",
+      "kat": "Cetak"
+    }
+  ],
+  "penawaran": [
+    {
+      "id": 1,
+      "no": "PNW/RZP/2025/001",
+      "klien": "PT Maju Bersama",
+      "tgl": "2025-01-10",
+      "status": "Disetujui",
+      "disc": 5,
+      "tax": 11,
+      "cat": "",
+      "items": [
+        {
+          "nama": "Cetak Banner",
+          "qty": 10,
+          "harga": 35000
+        },
+        {
+          "nama": "Pemasangan Banner",
+          "qty": 3,
+          "harga": 75000
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "no": "PNW/RZP/2025/002",
+      "klien": "CV Karya Mandiri",
+      "tgl": "2025-01-14",
+      "status": "Pending",
+      "disc": 0,
+      "tax": 11,
+      "cat": "",
+      "items": [
+        {
+          "nama": "Desain Grafis",
+          "qty": 5,
+          "harga": 150000
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "no": "PNW/RZP/2025/003",
+      "klien": "Toko Budi Jaya",
+      "tgl": "2025-01-18",
+      "status": "Dikirim",
+      "disc": 10,
+      "tax": 0,
+      "cat": "",
+      "items": [
+        {
+          "nama": "Cetak Spanduk",
+          "qty": 20,
+          "harga": 25000
+        },
+        {
+          "nama": "Neon Box",
+          "qty": 1,
+          "harga": 500000
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "no": "PNW/RZP/2026/004",
+      "tipe": "Advertising",
+      "klien": "PT Maju Bersama",
+      "tgl": "2026-05-31",
+      "status": "Pending",
+      "disc": 0,
+      "tax": 0,
+      "cat": "uiu",
+      "loc": "",
+      "termin": "",
+      "items": [
+        {
+          "nama": "Desain Grafis",
+          "p": 0,
+          "l": 0,
+          "t": 0,
+          "qty": 1,
+          "harga": 150000
+        },
+        {
+          "nama": "Pemasangan Banner",
+          "p": 0,
+          "l": 0,
+          "t": 0,
+          "qty": 1,
+          "harga": 75000
+        }
+      ]
+    }
+  ],
+  "invoice": [
+    {
+      "id": 1,
+      "no": "INV/RZP/2025/001",
+      "refPnw": "PNW/RZP/2025/001",
+      "klien": "PT Maju Bersama",
+      "tgl": "2025-01-12",
+      "due": "2025-01-26",
+      "status": "Lunas",
+      "disc": 5,
+      "tax": 11,
+      "items": [
+        {
+          "nama": "Cetak Banner",
+          "qty": 10,
+          "harga": 35000
+        },
+        {
+          "nama": "Pemasangan Banner",
+          "qty": 3,
+          "harga": 75000
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "no": "INV/RZP/2025/002",
+      "refPnw": "PNW/RZP/2025/002",
+      "klien": "CV Karya Mandiri",
+      "tgl": "2025-01-15",
+      "due": "2025-01-29",
+      "status": "Belum Dibayar",
+      "disc": 0,
+      "tax": 11,
+      "items": [
+        {
+          "nama": "Desain Grafis",
+          "qty": 5,
+          "harga": 150000
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "no": "INV/RZP/2025/003",
+      "refPnw": "",
+      "klien": "Toko Budi Jaya",
+      "tgl": "2025-01-10",
+      "due": "2025-01-17",
+      "status": "Jatuh Tempo",
+      "disc": 10,
+      "tax": 0,
+      "items": [
+        {
+          "nama": "Cetak Spanduk",
+          "qty": 20,
+          "harga": 25000
+        }
+      ]
+    }
+  ],
+  "seqPnw": 5,
+  "seqInv": 4,
+  "history": [
+    {
+      "u": "Administrator",
+      "in": "31/5/2026, 13.39.07",
+      "d": "3 mnt"
+    },
+    {
+      "u": "Pegawai RZP",
+      "in": "31/5/2026, 13.38.44",
+      "d": "13 dtk"
+    }
+  ],
+  "perusahaan": {
+    "nama": "RZP Radar Zetdi Pratama",
+    "singkatan": "RZP",
+    "alamat": "Jl. Contoh No. 1, Kota Mataram, NTB",
+    "telepon": "081234567890",
+    "email": "info@rzp.co.id",
+    "website": "www.rzp.co.id",
+    "tagline": "Solusi advertising & printing profesional"
+  },
+  "template": {
+    "aksen": "#CC1414",
+    "font": "Arial",
+    "showLogo": true,
+    "footerNote": "Terima kasih atas kepercayaan Anda kepada RZP Radar Zetdi Pratama.",
+    "showTtd": false,
+    "ttdNama": "",
+    "ttdJabatan": ""
+  }
+}

@@ -1,0 +1,1357 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.2.0/dist/tabler-icons.min.css');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bk:#0C0C0C;--bk2:#161618;--bk3:#1E1E21;--bk4:#272729;--bk5:#303033;
+--rd:#CC1414;--rd2:#E52020;--rd3:#FF3333;--rdm:#3A1010;
+--wh:#F5F5F5;--wh2:#DEDEDE;--wh3:#ABABAB;--wh4:#6A6A6A;
+--ok:#22C55E;--warn:#F59E0B;--err:#EF4444;--inf:#60A5FA;
+--r:6px;--r2:10px;--r3:14px;
+font-family:'Barlow',sans-serif;
+}
+body{background:var(--bk);color:var(--wh);min-height:100vh;overflow:hidden}
+
+#vlogin{display:flex;min-height:100vh}
+#vmain{display:none;min-height:100vh;flex-direction:row}
+#vmain.on{display:flex}
+
+.ll{width:300px;min-width:300px;background:var(--rd);display:flex;flex-direction:column;justify-content:space-between;padding:36px 30px}
+.ll-logo{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:44px;color:#fff;letter-spacing:2px;line-height:1}
+.ll-sub{font-size:11px;color:rgba(255,255,255,.7);letter-spacing:3px;text-transform:uppercase;margin-top:5px}
+.ll-tag{font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;font-weight:300}
+.ll-ver{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px}
+.lr{flex:1;background:var(--bk2);display:flex;align-items:center;justify-content:center;padding:40px}
+.lbox{width:100%;max-width:370px}
+.ltitle{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px}
+.lsub{font-size:12px;color:var(--wh3);margin-bottom:24px}
+.fg{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.fg label{font-size:10px;font-weight:700;color:var(--wh4);letter-spacing:1.5px;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
+.fg input,.fg select,.fg textarea{background:var(--bk3);border:1px solid #333;border-radius:var(--r);padding:9px 12px;font-size:12px;color:var(--wh);font-family:'Barlow',sans-serif;outline:none;width:100%;transition:border-color .12s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--rd)}
+.fg select option{background:var(--bk3)}
+.fg textarea{resize:vertical;min-height:60px}
+.ipw{position:relative}
+.ipw input{padding-right:36px}
+.ipw .ti{position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--wh4)}
+.tpw{position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--wh4);cursor:pointer;background:none;border:none;padding:0}
+.lerr{background:var(--rdm);border:1px solid #5A2020;border-radius:var(--r);padding:9px 12px;font-size:12px;color:var(--err);display:none;margin-bottom:12px;align-items:center;gap:8px}
+.lerr.on{display:flex}
+.lbtn{width:100%;background:var(--rd);color:#fff;border:none;border-radius:var(--r);padding:11px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background .12s;margin-top:2px}
+.lbtn:hover{background:var(--rd2)}.lbtn:disabled{background:var(--bk5);color:var(--wh4);cursor:not-allowed}
+.lhint{margin-top:16px;background:var(--bk3);border:1px solid #2A2A2A;border-radius:var(--r);padding:11px 13px}
+.lhint-t{font-size:10px;font-weight:700;color:var(--wh4);letter-spacing:1.2px;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;margin-bottom:6px}
+.lhint-r{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--wh3);margin-bottom:4px}
+.lhint-r:last-child{margin-bottom:0}
+.rpill{font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;letter-spacing:.5px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;flex-shrink:0}
+.rpa{background:var(--rdm);color:var(--rd3)}.rps{background:#0D1A2A;color:#60A5FA}
+
+.sb{width:225px;min-width:225px;background:var(--bk2);border-right:1px solid #2A2A2A;display:flex;flex-direction:column;height:100vh;position:sticky;top:0}
+.sbl{border-bottom:1px solid #2A2A2A}
+.sbli{padding:14px 17px;background:var(--rd);display:flex;align-items:center;justify-content:space-between}
+.sbln{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:19px;color:#fff;letter-spacing:1px}
+.sbls{font-size:8px;color:rgba(255,255,255,.65);letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+.ubar{padding:10px 13px;border-bottom:1px solid #2A2A2A;display:flex;align-items:center;gap:9px;position:relative}
+.uav{width:30px;height:30px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:12px;flex-shrink:0}
+.uav.a{background:var(--rdm);border:1px solid #5A2020;color:var(--rd3)}.uav.s{background:#0D1A2A;border:1px solid #1A3A5A;color:#60A5FA}
+.uav img,.uua img{width:100%;height:100%;border-radius:inherit;object-fit:cover;display:block}
+.unm{font-size:11px;font-weight:600;color:var(--wh);line-height:1.2}
+.url{font-size:10px;color:var(--wh4);font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px;text-transform:uppercase}
+.lob{margin-left:auto;background:none;border:none;color:var(--wh4);cursor:pointer;font-size:14px;padding:3px;border-radius:4px;display:flex;align-items:center}
+.lob:hover{color:var(--err);background:var(--rdm)}
+nav{flex:1;padding:9px 7px;overflow-y:auto}
+.ng{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;color:var(--wh4);letter-spacing:2px;padding:9px 9px 3px;text-transform:uppercase}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:var(--r);cursor:pointer;font-size:12px;font-weight:500;color:var(--wh3);transition:all .12s;margin-bottom:1px;user-select:none;border:1px solid transparent}
+.ni:hover{background:var(--bk3);color:var(--wh);border-color:#2A2A2A}
+.ni.on{background:var(--rd);color:#fff;border-color:var(--rd2)}
+.ni .ti{font-size:15px;flex-shrink:0}
+.ni.lk{opacity:.4;cursor:not-allowed}.ni.lk:hover{background:transparent;color:var(--wh3);border-color:transparent}
+.nbg{margin-left:auto;background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;min-width:16px;text-align:center;font-family:'Barlow Condensed',sans-serif}
+.ni.on .nbg{background:rgba(0,0,0,.25)}
+.sbft{padding:11px 15px;border-top:1px solid #2A2A2A;font-size:10px;color:var(--wh4)}
+.sbft span{color:var(--rd3);font-weight:600}
+
+/* Chart Styles */
+.chart-box{background:var(--bk2);border:1px solid #2A2A2A;border-radius:var(--r2);padding:18px;margin-bottom:18px}
+.chart-area{height:120px;display:flex;align-items:flex-end;gap:10px;margin-top:15px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.bar-wrap{width:100%;background:var(--bk3);height:100px;display:flex;align-items:flex-end;border-radius:4px;overflow:hidden}
+.bar{width:100%;background:var(--rd);min-height:2px;transition:height 0.5s ease;border-radius:2px 2px 0 0}
+.bar-lbl{font-size:9px;color:var(--wh4);font-weight:700;text-transform:uppercase}
+
+.mn{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.tb{background:var(--bk2);border-bottom:1px solid #2A2A2A;padding:9px 20px;display:flex;align-items:center;gap:10px}
+.tbt{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;letter-spacing:.5px;flex:1;text-transform:uppercase}
+.sw{display:flex;align-items:center;gap:7px;background:var(--bk3);border:1px solid #2A2A2A;border-radius:var(--r);padding:5px 10px}
+.sw input{background:none;border:none;outline:none;color:var(--wh);font-size:12px;font-family:'Barlow',sans-serif;width:140px}
+.sw input::placeholder{color:var(--wh4)}
+.sw .ti{font-size:13px;color:var(--wh4)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:var(--r);font-size:12px;font-family:'Barlow',sans-serif;font-weight:600;cursor:pointer;border:none;transition:all .12s;user-select:none;letter-spacing:.3px}
+.br{background:var(--rd);color:#fff;border:1px solid var(--rd2)}.br:hover{background:var(--rd2)}
+.bo{background:transparent;color:var(--wh3);border:1px solid #333}.bo:hover{background:var(--bk3);color:var(--wh);border-color:#444}
+.bs{padding:4px 9px;font-size:11px}
+.bds{background:var(--rdm);color:var(--err);border:1px solid #5A2020}.bds:hover{background:#4A1A1A}
+
+.ct{flex:1;overflow-y:auto;padding:18px 20px}
+.pg{display:none}.pg.on{display:block}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:18px}
+.sc{background:var(--bk2);border:1px solid #2A2A2A;border-left:3px solid var(--rd);border-radius:var(--r2);padding:14px 16px;position:relative}
+.sl{font-size:10px;font-weight:600;color:var(--wh4);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.sv{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:26px;line-height:1}
+.sv.r{color:var(--rd3)}.sv.sm{font-size:17px}
+.sic{position:absolute;top:12px;right:12px;font-size:17px;color:var(--wh4);opacity:.4}
+.scuts{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:18px}
+.scut{background:var(--bk2);border:1px solid #2A2A2A;border-radius:var(--r2);padding:14px 16px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:13px}
+.scut:hover{border-color:var(--rd);background:var(--bk3)}
+.scico{width:40px;height:40px;border-radius:var(--r);background:var(--rdm);border:1px solid #5A2020;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--rd3);flex-shrink:0}
+.sct{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.3px;margin-bottom:1px}
+.scd{font-size:11px;color:var(--wh3)}
+.shd{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.stit{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;text-transform:uppercase}
+.ctb{background:var(--bk2);border:1px solid #2A2A2A;border-radius:var(--r2);overflow:hidden}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th{font-size:10px;font-weight:700;color:var(--wh4);letter-spacing:1.2px;text-transform:uppercase;padding:8px 13px;text-align:left;border-bottom:1px solid #2A2A2A;background:var(--bk3);font-family:'Barlow Condensed',sans-serif}
+td{padding:10px 13px;font-size:12px;border-bottom:1px solid #1E1E21;color:var(--wh);vertical-align:middle;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bk3)}
+.sp{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
+.sp::before{content:'';width:4px;height:4px;border-radius:50%}
+.sp-pe{background:#2A2200;color:#F59E0B}.sp-pe::before{background:#F59E0B}
+.sp-se{background:#0D1A2A;color:#60A5FA}.sp-se::before{background:#60A5FA}
+.sp-ap{background:#0A2010;color:#22C55E}.sp-ap::before{background:#22C55E}
+.sp-re{background:var(--rdm);color:#EF4444}.sp-re::before{background:#EF4444}
+.sp-un{background:#2A2200;color:#F59E0B}.sp-un::before{background:#F59E0B}
+.sp-pa{background:#0A2010;color:#22C55E}.sp-pa::before{background:#22C55E}
+.sp-ov{background:var(--rdm);color:#EF4444}.sp-ov::before{background:#EF4444}
+.nb{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:var(--rd3);letter-spacing:.5px}
+.rb{font-size:10px;color:var(--wh4);font-family:'Barlow Condensed',sans-serif}
+.ac{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px}
+.abs{display:flex;gap:4px;align-items:center}
+.ib{display:inline-flex;align-items:center;justify-content:center;width:27px;height:27px;border-radius:5px;cursor:pointer;border:none;font-size:13px;transition:all .12s}
+.ibe{background:var(--bk4);color:var(--wh3)}.ibe:hover{background:#1A2A3A;color:var(--inf)}
+.ibd{background:var(--bk4);color:var(--wh3)}.ibd:hover{background:var(--rdm);color:var(--err)}
+.ibp{background:var(--bk4);color:var(--wh3)}.ibp:hover{background:#2A1500;color:#F59E0B}
+.ibi{background:var(--bk4);color:var(--wh3)}.ibi:hover{background:#102A10;color:var(--ok)}
+.lb{display:flex;align-items:center;gap:9px;margin-bottom:13px;flex-wrap:wrap}
+.fs{background:var(--bk3);border:1px solid #333;border-radius:var(--r);padding:5px 9px;font-size:12px;color:var(--wh);font-family:'Barlow',sans-serif;outline:none;cursor:pointer}
+.fs option{background:var(--bk3)}
+.est{padding:40px;text-align:center;color:var(--wh4)}
+.est .ti{font-size:34px;display:block;margin-bottom:9px;opacity:.4}
+.est p{font-size:13px}
+
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pc{background:var(--bk2);border:1px solid #2A2A2A;border-radius:var(--r2);padding:13px 15px;transition:border-color .12s}
+.pc:hover{border-color:#444}
+.ctag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;margin-bottom:6px;letter-spacing:1px;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
+.ctc{background:#2A0D0D;color:#F87171}.ctd{background:#0D1A2A;color:#60A5FA}.ctp{background:#0D200D;color:#4ADE80}
+.pn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;margin-bottom:2px}.pd{font-size:11px;color:var(--wh3);margin-bottom:8px}
+.pp{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px}.pu{font-size:10px;color:var(--wh4)}
+.pf{display:flex;gap:5px;margin-top:8px;padding-top:8px;border-top:1px solid #2A2A2A}
+
+.kgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.kc{background:var(--bk2);border:1px solid #2A2A2A;border-radius:var(--r2);padding:13px 15px;display:flex;gap:11px;transition:border-color .12s}
+.kc:hover{border-color:#444}
+.kav{width:40px;height:40px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:13px;flex-shrink:0}
+.kn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;margin-bottom:1px}.ki{font-size:11px;color:var(--wh3);margin-bottom:1px}.knt{font-size:10px;color:var(--wh4);margin-top:2px}
+
+.mbo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:900;align-items:flex-start;justify-content:center;padding-top:36px;overflow-y:auto}
+.mbo.on{display:flex}
+.md{background:var(--bk2);border:1px solid #333;border-radius:var(--r3);width:700px;max-width:96vw;padding:24px;margin-bottom:36px}
+.mhd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid #2A2A2A}
+.mt{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:19px;letter-spacing:.5px;text-transform:uppercase}
+.mno{font-family:'Barlow Condensed',sans-serif;font-size:13px;color:var(--rd3);font-weight:700;margin-left:9px;background:var(--rdm);padding:2px 9px;border-radius:3px;border:1px solid #5A2020}
+.mcl{width:28px;height:28px;border-radius:5px;background:var(--bk4);border:none;color:var(--wh3);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.mcl:hover{background:var(--rdm);color:var(--err)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dv{height:1px;background:#2A2A2A;margin:14px 0}
+.ihd{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.ihd span{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--wh2)}
+.it{width:100%;border-collapse:collapse;margin-bottom:9px}
+.it th{font-size:10px;color:var(--wh4);padding:4px 6px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid #2A2A2A}
+.it td{padding:3px 6px}
+.it input{background:var(--bk4);border:1px solid #333;border-radius:5px;padding:5px 7px;font-size:12px;color:var(--wh);font-family:'Barlow',sans-serif;width:100%;outline:none}
+.it input:focus{border-color:var(--rd)}
+.it .ti-trash{cursor:pointer;color:var(--wh4);font-size:14px}.it .ti-trash:hover{color:var(--err)}
+.sub-c{font-size:12px;color:var(--wh3);font-family:'Barlow Condensed',sans-serif;font-weight:600}
+.tb2{background:var(--bk3);border:1px solid #2A2A2A;border-radius:var(--r2);padding:12px 14px;margin-top:7px}
+.tr0{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;color:var(--wh3)}
+.trg{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;color:var(--wh);padding-top:7px;border-top:1px solid #333;margin-top:4px;margin-bottom:0}
+.trg span:last-child{color:var(--rd3)}
+.mft{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;padding-top:12px;border-top:1px solid #2A2A2A}
+.ri{background:var(--bk4);border:1px solid #2A2A2A;border-radius:var(--r);padding:9px 11px;margin-bottom:12px}
+
+.notif{position:fixed;bottom:18px;right:18px;background:var(--bk3);border:1px solid #333;border-radius:var(--r2);padding:11px 15px;display:flex;align-items:center;gap:9px;font-size:12px;z-index:9999;transform:translateY(70px);opacity:0;transition:all .25s;max-width:290px;font-weight:500}
+.notif.on{transform:translateY(0);opacity:1}
+.notif.ok{border-left:3px solid var(--ok)}.notif.ok .ti{color:var(--ok)}
+.notif.er{border-left:3px solid var(--err)}.notif.er .ti{color:var(--err)}
+.notif.nf{border-left:3px solid var(--inf)}.notif.nf .ti{color:var(--inf)}
+.notif .ti{font-size:15px}
+
+.sgrid2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.scd2{background:var(--bk2);border:1px solid #2A2A2A;border-radius:var(--r2);padding:16px 18px}
+.scd2 h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.scd2 h3 .ti{color:var(--rd3)}
+.urow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #2A2A2A}
+.urow:last-child{border-bottom:none}
+.uua{width:32px;height:32px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:12px;color:#fff;flex-shrink:0}
+.uua.a{background:var(--rd)}.uua.s{background:#1A3A7A}
+.unm2{font-size:12px;font-weight:600}.umt{font-size:10px;color:var(--wh4);font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px;text-transform:uppercase}
+.abg{font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;letter-spacing:.5px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;margin-left:5px}
+.aba{background:var(--rdm);color:var(--rd3)}.abs2{background:#0D1A2A;color:#60A5FA}
+
+.tabs{display:flex;gap:0;margin-bottom:14px;border-bottom:1px solid #2A2A2A}
+.tab{padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;color:var(--wh4);border-bottom:2px solid transparent;transition:all .12s;font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;text-transform:uppercase}
+.tab:hover{color:var(--wh3)}
+.tab.on{color:var(--rd3);border-bottom-color:var(--rd)}
+.tpanel{display:none}.tpanel.on{display:block}
+
+.prev-box{background:#fff;border-radius:var(--r);padding:20px;color:#111;font-family:Arial,sans-serif;font-size:12px;min-height:200px}
+.prev-hdr{display:flex;justify-content:space-between;border-bottom:2px solid var(--prev-accent,#CC1414);padding-bottom:12px;margin-bottom:14px}
+.prev-brand{font-size:20px;font-weight:900;letter-spacing:1px}
+.prev-doctype{text-align:right}
+.prev-doctype h4{font-size:14px;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+.prev-no{font-size:11px;font-weight:700;margin-top:2px}
+.prev-meta{display:flex;gap:20px;margin-bottom:12px;padding:10px;background:#f5f5f5;border-radius:4px;font-size:11px}
+.prev-meta-item label{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;display:block;margin-bottom:2px}
+.prev-meta-item strong{font-size:12px;font-weight:700}
+.prev-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #eee;font-size:11px}
+.prev-total{display:flex;justify-content:space-between;padding:4px 0;font-size:11px;color:#666}
+.prev-grand{display:flex;justify-content:space-between;font-size:14px;font-weight:900;padding-top:7px;border-top:2px solid var(--prev-accent,#CC1414);margin-top:4px}
+.prev-footer{margin-top:12px;padding-top:8px;border-top:1px solid #ddd;text-align:center;font-size:10px;color:#999}
+.clr-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.clr-sw{width:28px;height:28px;border-radius:5px;cursor:pointer;border:2px solid transparent;transition:all .12s;flex-shrink:0}
+.clr-sw.on{border-color:#fff;transform:scale(1.12)}
+.font-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.font-btn{padding:5px 10px;font-size:11px;background:var(--bk4);border:1px solid #333;border-radius:5px;color:var(--wh3);cursor:pointer;transition:all .12s}
+.font-btn:hover{background:var(--bk3);color:var(--wh)}
+.font-btn.on{background:var(--rdm);border-color:var(--rd);color:var(--rd3)}
+.info-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #2A2A2A;font-size:12px}
+.info-row:last-child{border-bottom:none}
+.info-row .ti{font-size:14px;color:var(--rd3);flex-shrink:0}
+.info-val{color:var(--wh2);flex:1}
+</style>
+
+<div id="vlogin">
+  <div class="ll">
+    <div><div class="ll-logo">RZP</div><div class="ll-sub">Radar Zetdi Pratama</div></div>
+    <div class="ll-tag">Sistem manajemen penawaran & invoice profesional.</div>
+    <div class="ll-ver">v2.0 &nbsp;·&nbsp; 2025</div>
+  </div>
+  <div class="lr">
+    <div class="lbox">
+      <div class="ltitle">Masuk ke Sistem</div>
+      <div class="lsub">Masukkan nama pengguna dan kata sandi</div>
+      <div class="lerr" id="lerr"><i class="ti ti-alert-circle"></i><span id="lerr-msg">Salah</span></div>
+      <div class="fg"><label>Nama Pengguna</label>
+        <div class="ipw"><input type="text" id="li-n" placeholder="Nama pengguna..." autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('li-p').focus()"><i class="ti ti-user"></i></div>
+      </div>
+      <div class="fg"><label>Kata Sandi</label>
+        <div class="ipw"><input type="password" id="li-p" placeholder="Kata sandi..." onkeydown="if(event.key==='Enter')doLogin()"><button class="tpw" onclick="tpw('li-p','pe1')"><i class="ti ti-eye" id="pe1"></i></button></div>
+      </div>
+      <button class="lbtn" id="lbtn" onclick="doLogin()"><i class="ti ti-login" style="margin-right:5px"></i>MASUK</button>
+      <div class="lhint"><div class="lhint-t">Akun Default</div>
+        <div class="lhint-r"><span class="rpill rpa">Admin</span>nama: <b>admin</b> &nbsp;·&nbsp; sandi: <b>admin123</b></div>
+        <div class="lhint-r"><span class="rpill rps">Pegawai</span>nama: <b>pegawai</b> &nbsp;·&nbsp; sandi: <b>rzp2025</b></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="vmain">
+  <aside class="sb">
+    <div class="sbl"><div class="sbli"><div><div class="sbln" id="sb-brand">RZP</div><div class="sbls">Radar Zetdi Pratama</div></div></div></div>
+    <div class="ubar">
+      <div class="uav" id="sb-av" onclick="document.getElementById('p-upl').click()" style="cursor:pointer" title="Ganti Foto Profil">AD</div>
+      <input type="file" id="p-upl" style="display:none" accept="image/*" onchange="uPF(this)">
+      <div><div class="unm" id="sb-nm">Admin</div><div class="url" id="sb-rl">Administrator</div></div>
+      <button class="lob" onclick="doLogout()" title="Keluar"><i class="ti ti-logout"></i></button>
+    </div>
+    <nav>
+      <div class="ng">Utama</div>
+      <div class="ni on" onclick="gn('dashboard',this)"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
+      <div class="ni" onclick="gn('penawaran',this)"><i class="ti ti-file-description"></i>Penawaran<span class="nbg" id="nc-p"></span></div>
+      <div class="ni" onclick="gn('invoice',this)"><i class="ti ti-receipt"></i>Invoice<span class="nbg" id="nc-i"></span></div>
+      <div class="ng">Master Data</div>
+      <div class="ni" onclick="gn('produk',this)"><i class="ti ti-packages"></i>Produk & Layanan</div>
+      <div class="ni" onclick="gn('klien',this)"><i class="ti ti-users"></i>Klien</div>
+      <div class="ng">Sistem</div>
+      <div class="ni" id="nav-set" onclick="gn('setting',this)"><i class="ti ti-settings"></i>Pengaturan</div>
+    </nav>
+    <div class="sbft">v2.0 &nbsp;·&nbsp; <span>RZP</span> &copy; 2025</div>
+  </aside>
+
+  <div class="mn">
+    <div class="tb">
+      <div class="tbt" id="tb-title">Dashboard</div>
+      <div class="sw"><i class="ti ti-search"></i><input type="text" placeholder="Cari data..." id="top-search" oninput="doSearch(this.value)"></div>
+      <button class="btn bo bs" onclick="exportJSON()"><i class="ti ti-download"></i>Export</button>
+      <button class="btn bo bs" id="btn-imp" onclick="importJSON()"><i class="ti ti-upload"></i>Import</button>
+    </div>
+    <div class="ct">
+
+      <div class="pg on" id="pg-dashboard">
+        <div class="sgrid">
+          <div class="sc"><i class="ti ti-file-description sic"></i><div class="sl">Total Penawaran</div><div class="sv" id="ds-tp">0</div></div>
+          <div class="sc"><i class="ti ti-receipt sic"></i><div class="sl">Invoice Aktif</div><div class="sv r" id="ds-ia">0</div></div>
+          <div class="sc"><i class="ti ti-circle-check sic"></i><div class="sl">Invoice Lunas</div><div class="sv" id="ds-il">0</div></div>
+          <div class="sc"><i class="ti ti-trending-up sic"></i><div class="sl">Omzet Bulan Ini</div><div class="sv r sm" id="ds-omz">Rp 0</div></div>
+        </div>
+        <div class="chart-box">
+          <div class="shd">
+            <div class="stit"><i class="ti ti-chart-bar" style="margin-right:5px;color:var(--rd3)"></i>Tren Omzet 5 Bulan Terakhir</div>
+          </div>
+          <div class="chart-area" id="ds-chart"></div>
+        </div>
+        <div class="scuts">
+          <div class="scut" id="sc-pnw"><div class="scico"><i class="ti ti-file-plus"></i></div><div><div class="sct">Buat Penawaran Baru</div><div class="scd">Nomor otomatis · PNW/RZP/YYYY/XXX</div></div></div>
+          <div class="scut" id="sc-inv"><div class="scico"><i class="ti ti-receipt-2"></i></div><div><div class="sct">Buat Invoice Baru</div><div class="scd">Nomor otomatis · INV/RZP/YYYY/XXX</div></div></div>
+        </div>
+        <div class="shd"><div class="stit">Aktivitas Terbaru</div></div>
+        <div class="ctb">
+          <table>
+            <colgroup><col style="width:65px"><col style="width:145px"><col><col style="width:115px"><col style="width:85px"><col style="width:90px"></colgroup>
+            <thead><tr><th>Tipe</th><th>Nomor</th><th>Klien</th><th>Total</th><th>Status</th><th>Tanggal</th></tr></thead>
+            <tbody id="dash-tb"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pg" id="pg-penawaran">
+        <div class="lb">
+          <button class="btn br bs" onclick="openPnw()"><i class="ti ti-plus"></i>Penawaran Baru</button>
+          <select class="fs" onchange="rPnw(this.value)"><option value="">Semua Status</option><option>Pending</option><option>Dikirim</option><option>Disetujui</option><option>Ditolak</option></select>
+          <div class="sw" style="flex:1"><i class="ti ti-search"></i><input type="text" placeholder="Cari..." oninput="rPnw('',this.value)" style="width:100%"></div>
+        </div>
+        <div class="ctb">
+          <table>
+            <colgroup><col style="width:150px"><col><col style="width:90px"><col style="width:115px"><col style="width:90px"><col style="width:135px"></colgroup>
+            <thead><tr><th>No. Penawaran</th><th>Klien</th><th>Tanggal</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
+            <tbody id="pnw-tb"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pg" id="pg-invoice">
+        <div class="lb">
+          <button class="btn br bs" onclick="openInv()"><i class="ti ti-plus"></i>Invoice Baru</button>
+          <select class="fs" onchange="rInv(this.value)"><option value="">Semua Status</option><option>Belum Dibayar</option><option>Lunas</option><option>Jatuh Tempo</option></select>
+          <div class="sw" style="flex:1"><i class="ti ti-search"></i><input type="text" placeholder="Cari..." oninput="rInv('',this.value)" style="width:100%"></div>
+        </div>
+        <div class="ctb">
+          <table>
+            <colgroup><col style="width:150px"><col style="width:120px"><col><col style="width:85px"><col style="width:110px"><col style="width:85px"><col style="width:115px"></colgroup>
+            <thead><tr><th>No. Invoice</th><th>Ref. Penawaran</th><th>Klien</th><th>Tanggal</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
+            <tbody id="inv-tb"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pg" id="pg-produk">
+        <div class="lb">
+          <button class="btn br bs" onclick="openProd()"><i class="ti ti-plus"></i>Tambah Produk</button>
+          <select class="fs" onchange="rProd(this.value)"><option value="">Semua</option><option>Cetak</option><option>Desain</option><option>Pemasangan</option></select>
+        </div>
+        <div class="pgrid" id="pg-prod"></div>
+      </div>
+
+      <div class="pg" id="pg-klien">
+        <div class="lb">
+          <button class="btn br bs" onclick="openKlien()"><i class="ti ti-plus"></i>Tambah Klien</button>
+          <div class="sw" style="flex:1"><i class="ti ti-search"></i><input type="text" placeholder="Cari..." oninput="rKlien(this.value)" style="width:100%"></div>
+        </div>
+        <div class="kgrid" id="pg-klien-g"></div>
+      </div>
+
+      <div class="pg" id="pg-setting"><div id="set-content"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PENAWARAN -->
+<div class="mbo" id="m-pnw">
+  <div class="md">
+    <div class="mhd">
+      <div style="display:flex;align-items:center;gap:7px">
+        <div class="mt" id="mpnw-t">Penawaran Baru</div>
+        <span class="mno" id="mpnw-no"></span>
+      </div>
+      <button class="mcl" onclick="cM('m-pnw')"><i class="ti ti-x"></i></button>
+    </div>
+    <input type="hidden" id="pnw-eid">
+    <div class="fr">
+      <div class="fg"><label>Klien *</label><select id="pnw-kl"></select></div>
+      <div class="fg"><label>Tanggal *</label><input type="date" id="pnw-tgl"></div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Tipe Penawaran</label>
+        <select id="pnw-tp" onchange="updPnwForm()">
+          <option value="Advertising">Advertising</option>
+          <option value="Individual">Individual</option>
+          <option value="Proyek Bangunan">Proyek Bangunan</option>
+        </select>
+      </div>
+      <div class="fg"><label>Status</label><select id="pnw-st"><option>Pending</option><option>Dikirim</option><option>Disetujui</option><option>Ditolak</option></select></div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Catatan</label><input type="text" id="pnw-cat" placeholder="Catatan..."></div>
+      <div class="fg" id="pnw-loc-group" style="display:none"><label>Lokasi Proyek</label><input type="text" id="pnw-loc" placeholder="Lokasi atau alamat proyek..."></div>
+      <div class="fg" id="pnw-trm-group" style="display:none"><label>Termin Pembayaran</label><input type="text" id="pnw-trm" placeholder="Misal: DP 50%, Pelunasan 50%..."></div>
+    </div>
+    <div class="fg">
+      <label>Lampiran Rencana Kerja (Import dari Drive Lokal)</label>
+      <input type="file" id="pnw-file" accept="image/*,.pdf" onchange="hAtt(this, 'pnw')">
+      <input type="hidden" id="pnw-att">
+      <div id="pnw-prev" style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap"></div>
+    </div>
+    <div class="dv"></div>
+    <div class="ihd"><span>Item Penawaran</span><button class="btn bo bs" onclick="addRow('pnw')"><i class="ti ti-plus"></i>Tambah</button></div>
+    <table class="it"><thead><tr><th id="pnw-th-nm" style="width:30%">Produk/Jasa</th><th class="pnw-dim" style="width:8%">P</th><th class="pnw-dim" style="width:8%">L</th><th class="pnw-dim" style="width:8%">T</th><th style="width:8%">Qty</th><th style="width:15%">Harga</th><th style="width:15%">Subtotal</th><th style="width:8%"></th></tr></thead><tbody id="pnw-rows"></tbody></table>
+    <div class="fr">
+      <div class="fg"><label>Diskon (%)</label><input type="number" id="pnw-dc" value="0" min="0" max="100" oninput="cT('pnw')"></div>
+      <div class="fg"><label>PPN (%)</label><input type="number" id="pnw-tx" value="11" min="0" max="100" oninput="cT('pnw')"></div>
+    </div>
+    <div class="tb2">
+      <div class="tr0"><span>Subtotal</span><span id="pnw-sub">Rp 0</span></div>
+      <div class="tr0"><span id="pnw-dl">Diskon (0%)</span><span id="pnw-dv">- Rp 0</span></div>
+      <div class="tr0"><span id="pnw-tl">PPN (11%)</span><span id="pnw-tv">+ Rp 0</span></div>
+      <div class="tr0 trg"><span>Total</span><span id="pnw-tot">Rp 0</span></div>
+    </div>
+    <div class="mft">
+      <button class="btn bo" onclick="cM('m-pnw')">Batal</button>
+      <button class="btn bo" onclick="doPdf('pnw')"><i class="ti ti-file-export"></i>Export PDF</button>
+      <button class="btn br" onclick="savePnw()"><i class="ti ti-device-floppy"></i>Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL INVOICE -->
+<div class="mbo" id="m-inv">
+  <div class="md">
+    <div class="mhd">
+      <div style="display:flex;align-items:center;gap:7px">
+        <div class="mt" id="minv-t">Invoice Baru</div>
+        <span class="mno" id="minv-no"></span>
+      </div>
+      <button class="mcl" onclick="cM('m-inv')"><i class="ti ti-x"></i></button>
+    </div>
+    <input type="hidden" id="inv-eid">
+    <div class="ri">
+      <div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--wh4);font-family:'Barlow Condensed',sans-serif;font-weight:700;margin-bottom:5px">Referensi Penawaran</div>
+      <select id="inv-ref" style="background:var(--bk4);border:1px solid #333;border-radius:5px;padding:6px 10px;font-size:12px;color:var(--wh);font-family:'Barlow',sans-serif;outline:none;width:100%" onchange="loadPnw(this.value)">
+        <option value="">-- Pilih nomor penawaran (opsional) --</option>
+      </select>
+      <div style="margin-top:5px;font-size:11px;color:var(--wh4)">Pilih penawaran untuk mengisi otomatis klien & item.</div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Klien *</label><select id="inv-kl"></select></div>
+      <div class="fg"><label>Tanggal *</label><input type="date" id="inv-tgl"></div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Tipe Invoice</label>
+        <select id="inv-tp" onchange="updInvForm()">
+          <option value="Advertising">Advertising</option>
+          <option value="Individual">Individual</option>
+          <option value="Proyek Bangunan">Proyek Bangunan</option>
+        </select>
+      </div>
+      <div class="fg"><label>Jatuh Tempo</label><input type="date" id="inv-due"></div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Status</label><select id="inv-st"><option>Belum Dibayar</option><option>Lunas</option><option>Jatuh Tempo</option></select></div>
+      <div class="fg" id="inv-loc-group" style="display:none"><label>Lokasi Proyek</label><input type="text" id="inv-loc" placeholder="Lokasi proyek..."></div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Catatan</label><input type="text" id="inv-cat" placeholder="Catatan..."></div>
+      <div class="fg" id="inv-trm-group" style="display:none"><label>Termin Pembayaran</label><input type="text" id="inv-trm" placeholder="Termin..."></div>
+    </div>
+    <div class="fg">
+      <label>Bukti Pengerjaan / Lampiran (Import dari Drive Lokal)</label>
+      <input type="file" id="inv-file" accept="image/*,.pdf" onchange="hAtt(this, 'inv')">
+      <input type="hidden" id="inv-att">
+      <div id="inv-prev" style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap"></div>
+    </div>
+    <div class="dv"></div>
+    <div class="ihd"><span>Item Invoice</span><button class="btn bo bs" onclick="addRow('inv')"><i class="ti ti-plus"></i>Tambah</button></div>
+    <table class="it"><thead><tr><th id="inv-th-nm" style="width:30%">Produk/Jasa</th><th class="pnw-dim" style="width:8%">P</th><th class="pnw-dim" style="width:8%">L</th><th class="pnw-dim" style="width:8%">T</th><th style="width:8%">Qty</th><th style="width:15%">Harga</th><th style="width:15%">Subtotal</th><th style="width:8%"></th></tr></thead><tbody id="inv-rows"></tbody></table>
+    <div class="fr">
+      <div class="fg"><label>Diskon (%)</label><input type="number" id="inv-dc" value="0" min="0" max="100" oninput="cT('inv')"></div>
+      <div class="fg"><label>PPN (%)</label><input type="number" id="inv-tx" value="11" min="0" max="100" oninput="cT('inv')"></div>
+    </div>
+    <div class="tb2">
+      <div class="tr0"><span>Subtotal</span><span id="inv-sub">Rp 0</span></div>
+      <div class="tr0"><span id="inv-dl">Diskon (0%)</span><span id="inv-dv">- Rp 0</span></div>
+      <div class="tr0"><span id="inv-tl">PPN (11%)</span><span id="inv-tv">+ Rp 0</span></div>
+      <div class="tr0 trg"><span>Total</span><span id="inv-tot">Rp 0</span></div>
+    </div>
+    <div class="mft">
+      <button class="btn bo" onclick="cM('m-inv')">Batal</button>
+      <button class="btn bo" onclick="doPdf('inv')"><i class="ti ti-file-export"></i>Export PDF</button>
+      <button class="btn br" onclick="saveInv()"><i class="ti ti-device-floppy"></i>Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PRODUK -->
+<div class="mbo" id="m-prod">
+  <div class="md" style="max-width:440px">
+    <div class="mhd"><div class="mt" id="mprod-t">Tambah Produk</div><button class="mcl" onclick="cM('m-prod')"><i class="ti ti-x"></i></button></div>
+    <input type="hidden" id="prod-eid">
+    <div class="fg"><label>Nama *</label><input type="text" id="pr-nm" placeholder="Cetak Banner..."></div>
+    <div class="fg"><label>Deskripsi</label><textarea id="pr-ds" placeholder="Deskripsi..."></textarea></div>
+    <div class="fr"><div class="fg"><label>Harga (Rp) *</label><input type="number" id="pr-hg"></div><div class="fg"><label>Satuan</label><input type="text" id="pr-st" placeholder="pcs, m²..."></div></div>
+    <div class="fg" style="margin-top:4px"><label>Kategori</label><select id="pr-kt"><option>Cetak</option><option>Desain</option><option>Pemasangan</option></select></div>
+    <div class="mft"><button class="btn bo" onclick="cM('m-prod')">Batal</button><button class="btn br" onclick="saveProd()"><i class="ti ti-device-floppy"></i>Simpan</button></div>
+  </div>
+</div>
+
+<!-- MODAL KLIEN -->
+<div class="mbo" id="m-klien">
+  <div class="md" style="max-width:440px">
+    <div class="mhd"><div class="mt" id="mklien-t">Tambah Klien</div><button class="mcl" onclick="cM('m-klien')"><i class="ti ti-x"></i></button></div>
+    <input type="hidden" id="kl-eid">
+    <div class="fg"><label>Nama *</label><input type="text" id="kl-nm" placeholder="PT. ..."></div>
+    <div class="fg"><label>Alamat</label><textarea id="kl-al" placeholder="Jl. ..."></textarea></div>
+    <div class="fr"><div class="fg"><label>Telepon</label><input type="text" id="kl-tp" placeholder="08..."></div><div class="fg"><label>Email</label><input type="email" id="kl-em" placeholder="email@..."></div></div>
+    <div class="fg" style="margin-top:4px"><label>Catatan</label><textarea id="kl-ct"></textarea></div>
+    <div class="mft"><button class="btn bo" onclick="cM('m-klien')">Batal</button><button class="btn br" onclick="saveKlien()"><i class="ti ti-device-floppy"></i>Simpan</button></div>
+  </div>
+</div>
+
+<!-- MODAL TAMBAH USER -->
+<div class="mbo" id="m-usr">
+  <div class="md" style="max-width:400px">
+    <div class="mhd"><div class="mt">Tambah Pengguna</div><button class="mcl" onclick="cM('m-usr')"><i class="ti ti-x"></i></button></div>
+    <div class="fg"><label>Nama Pengguna *</label><input type="text" id="nu-n" placeholder="Nama login..."></div>
+    <div class="fg"><label>Nama Lengkap</label><input type="text" id="nu-fn" placeholder="Nama lengkap..."></div>
+    <div class="fg"><label>Kata Sandi *</label><div class="ipw"><input type="password" id="nu-p" placeholder="Kata sandi..."><button class="tpw" onclick="tpw('nu-p','pe2')"><i class="ti ti-eye" id="pe2"></i></button></div></div>
+    <div class="fg"><label>Role</label><select id="nu-rl"><option>Pegawai</option><option>Admin</option></select></div>
+    <div class="mft"><button class="btn bo" onclick="cM('m-usr')">Batal</button><button class="btn br" onclick="saveUsr()"><i class="ti ti-device-floppy"></i>Tambah</button></div>
+  </div>
+</div>
+
+<!-- MODAL GANTI SANDI -->
+<div class="mbo" id="m-chp">
+  <div class="md" style="max-width:380px">
+    <div class="mhd"><div class="mt">Ganti Kata Sandi</div><button class="mcl" onclick="cM('m-chp')"><i class="ti ti-x"></i></button></div>
+    <input type="hidden" id="chp-id">
+    <div class="fg"><label>Sandi Baru *</label><input type="password" id="chp-n" placeholder="Kata sandi baru..."></div>
+    <div class="fg"><label>Konfirmasi *</label><input type="password" id="chp-c" placeholder="Ulangi..."></div>
+    <div class="mft"><button class="btn bo" onclick="cM('m-chp')">Batal</button><button class="btn br" onclick="saveChp()"><i class="ti ti-key"></i>Simpan</button></div>
+  </div>
+</div>
+
+<!-- MODAL HAPUS -->
+<div class="mbo" id="m-del">
+  <div class="md" style="max-width:340px">
+    <div class="mhd"><div class="mt" style="color:var(--err)"><i class="ti ti-alert-triangle" style="margin-right:6px"></i>Hapus Data</div><button class="mcl" onclick="cM('m-del')"><i class="ti ti-x"></i></button></div>
+    <p style="font-size:13px;color:var(--wh3);margin-bottom:16px" id="del-msg">Yakin hapus?</p>
+    <div class="mft" style="margin-top:0;padding-top:0;border:none">
+      <button class="btn bo" onclick="cM('m-del')">Batal</button>
+      <button class="btn bds" id="del-ok"><i class="ti ti-trash"></i>Hapus</button>
+    </div>
+  </div>
+</div>
+
+<datalist id="dl-prod"></datalist>
+
+<div class="notif" id="notif"><i class="ti ti-check"></i><span id="notif-t">OK</span></div>
+
+<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+<script>
+let db=JSON.parse(localStorage.getItem('rzp-v3')||'null')||{
+  users:[{id:1,nama:'admin',fullname:'Administrator',pass:'admin123',role:'Admin'},{id:2,nama:'pegawai',fullname:'Pegawai RZP',pass:'rzp2025',role:'Pegawai'}],
+  klien:[{id:1,nama:'PT Maju Bersama',alamat:'Jl. Sudirman No. 10',telp:'08123456789',email:'maju@email.com',cat:'Klien tetap'},{id:2,nama:'CV Karya Mandiri',alamat:'Jl. Gatot Subroto No. 5',telp:'08987654321',email:'karya@email.com',cat:''},{id:3,nama:'Toko Budi Jaya',alamat:'Jl. Ahmad Yani No. 88',telp:'081234567890',email:'',cat:'Bayar tunai'}],
+  produk:[{id:1,nama:'Cetak Banner',desc:'Full color, laminasi glossy',harga:35000,sat:'m²',kat:'Cetak'},{id:2,nama:'Cetak Spanduk',desc:'Outdoor, anti UV',harga:25000,sat:'m²',kat:'Cetak'},{id:3,nama:'Desain Grafis',desc:'Desain materi promosi',harga:150000,sat:'jam',kat:'Desain'},{id:4,nama:'Pemasangan Banner',desc:'Termasuk rangka & baut',harga:75000,sat:'titik',kat:'Pemasangan'},{id:5,nama:'Neon Box',desc:'Custom ukuran, LED',harga:500000,sat:'pcs',kat:'Cetak'}],
+  penawaran:[{id:1,no:'PNW/RZP/2025/001',klien:'PT Maju Bersama',tgl:'2025-01-10',status:'Disetujui',disc:5,tax:11,cat:'',items:[{nama:'Cetak Banner',qty:10,harga:35000},{nama:'Pemasangan Banner',qty:3,harga:75000}]},{id:2,no:'PNW/RZP/2025/002',klien:'CV Karya Mandiri',tgl:'2025-01-14',status:'Pending',disc:0,tax:11,cat:'',items:[{nama:'Desain Grafis',qty:5,harga:150000}]},{id:3,no:'PNW/RZP/2025/003',klien:'Toko Budi Jaya',tgl:'2025-01-18',status:'Dikirim',disc:10,tax:0,cat:'',items:[{nama:'Cetak Spanduk',qty:20,harga:25000},{nama:'Neon Box',qty:1,harga:500000}]}],
+  invoice:[{id:1,no:'INV/RZP/2025/001',refPnw:'PNW/RZP/2025/001',klien:'PT Maju Bersama',tgl:'2025-01-12',due:'2025-01-26',status:'Lunas',disc:5,tax:11,items:[{nama:'Cetak Banner',qty:10,harga:35000},{nama:'Pemasangan Banner',qty:3,harga:75000}]},{id:2,no:'INV/RZP/2025/002',refPnw:'PNW/RZP/2025/002',klien:'CV Karya Mandiri',tgl:'2025-01-15',due:'2025-01-29',status:'Belum Dibayar',disc:0,tax:11,items:[{nama:'Desain Grafis',qty:5,harga:150000}]},{id:3,no:'INV/RZP/2025/003',refPnw:'',klien:'Toko Budi Jaya',tgl:'2025-01-10',due:'2025-01-17',status:'Jatuh Tempo',disc:10,tax:0,items:[{nama:'Cetak Spanduk',qty:20,harga:25000}]}],
+  seqPnw:4,seqInv:4,
+  history:[],
+  perusahaan:{nama:'RZP Radar Zetdi Pratama',singkatan:'RZP',alamat:'Jl. Contoh No. 1, Kota Mataram, NTB',telepon:'081234567890',email:'info@rzp.co.id',website:'www.rzp.co.id',tagline:'Solusi advertising & printing profesional'},
+  template:{aksen:'#CC1414',font:'Arial',showLogo:true,footerNote:'Terima kasih atas kepercayaan Anda kepada RZP Radar Zetdi Pratama.',showTtd:false,ttdNama:'',ttdJabatan:''}
+};
+
+const API_URL = 'TEMPEL_URL_GOOGLE_APPS_SCRIPT_ANDA_DISINI';
+let ses=null, currPg='dashboard', isSyncing=false;
+
+const sDB=async()=>{
+  if(isSyncing) return;
+  isSyncing = true;
+  localStorage.setItem('rzp-v3',JSON.stringify(db));
+  try {
+    await fetch(API_URL, { method:'POST', body:JSON.stringify(db)});
+  } catch(e) { console.warn('Gagal sinkron ke Google Drive (Offline)'); }
+  isSyncing = false;
+};
+
+const fmt=n=>'Rp '+Math.round(n).toLocaleString('id-ID');
+const yr=()=>new Date().getFullYear();
+const p3=n=>String(n).padStart(3,'0');
+const gPnw=()=>`PNW/RZP/${yr()}/${p3(db.seqPnw)}`;
+const gInv=()=>`INV/RZP/${yr()}/${p3(db.seqInv)}`;
+const isA=()=>ses&&ses.role==='Admin';
+
+const gRS = i => {
+  const p = db.produk.find(x => x.nama === i.nama);
+  let m = (p && p.sat === 'm²' && i.p && i.l) ? i.p * i.l : 1;
+  return i.qty * i.harga * m;
+};
+
+function cGT(items,dc,tx){const s=items.reduce((a,i)=>a+gRS(i),0);const d=s*(dc/100),t=(s-d)*(tx/100);return{s,d,t,tot:s-d+t};}
+
+function sPill(v){const m={'Pending':'sp-pe','Dikirim':'sp-se','Disetujui':'sp-ap','Ditolak':'sp-re','Belum Dibayar':'sp-un','Lunas':'sp-pa','Jatuh Tempo':'sp-ov'};return`<span class="sp ${m[v]||'sp-pe'}">${v}</span>`;}
+
+function ntf(msg,tp='ok'){
+  const el=document.getElementById('notif');
+  el.querySelector('.ti').className='ti ti-'+(tp==='ok'?'check':tp==='nf'?'info-circle':'alert-circle');
+  document.getElementById('notif-t').textContent=msg;
+  el.className='notif '+tp+' on';
+  setTimeout(()=>el.classList.remove('on'),3000);
+}
+
+// Fungsi baru untuk sinkronisasi data dari server saat startup
+async function initServerData() {
+  try {
+    const res = await fetch(API_URL);
+    const serverData = await res.json();
+    // Pastikan data server valid sebelum menimpa data lokal
+    if(serverData && serverData.users && serverData.users.length > 0) {
+      db = { ...db, ...serverData };
+      localStorage.setItem('rzp-v3', JSON.stringify(db));
+    }
+  } catch(e) { console.warn('Cloud offline, menggunakan data lokal.'); }
+}
+
+function tpw(id,ico){const i=document.getElementById(id),e=document.getElementById(ico);if(i.type==='password'){i.type='text';e.className='ti ti-eye-off';}else{i.type='password';e.className='ti ti-eye';}}
+
+async function doLogin(){
+  const n=document.getElementById('li-n').value.trim(),p=document.getElementById('li-p').value;
+  const eb=document.getElementById('lerr'),lb=document.getElementById('lbtn');
+  if(!n||!p){eb.classList.add('on');document.getElementById('lerr-msg').textContent='Nama dan kata sandi wajib diisi.';return;}
+  lb.disabled=true;lb.textContent='Memeriksa...';
+  await initServerData(); // Ambil data terbaru sebelum login
+  setTimeout(()=>{
+    const u=db.users.find(x=>x.nama.toLowerCase()===n.toLowerCase()&&x.pass===p);
+    if(u){
+      ses=u;eb.classList.remove('on');
+      ses.loginAt = Date.now();
+      document.getElementById('vlogin').style.display='none';
+      document.getElementById('vmain').classList.add('on');
+      rAv(u,'sb-av');
+      document.getElementById('sb-nm').textContent=u.fullname||u.nama;
+      document.getElementById('sb-rl').textContent=u.role;
+      document.getElementById('sb-brand').textContent=db.perusahaan.singkatan||'RZP';
+      if(u.role!=='Admin'){document.getElementById('nav-set').classList.add('lk');document.getElementById('btn-imp').disabled=true;}
+      rDash();fKlSel();fPnwRef();fDlProd();
+      ntf(`Selamat datang, ${u.fullname||u.nama}!`,'nf');
+    }else{
+      eb.classList.add('on');document.getElementById('lerr-msg').textContent='Nama pengguna atau kata sandi salah.';
+      lb.disabled=false;lb.innerHTML='<i class="ti ti-login" style="margin-right:5px"></i>MASUK';
+      document.getElementById('li-p').value='';document.getElementById('li-p').focus();
+    }
+  },350);
+}
+
+function doLogout(){
+  if(ses && ses.loginAt){
+    const diff = Date.now() - ses.loginAt;
+    let dur = "";
+    if(diff < 60000) dur = Math.round(diff/1000) + " dtk";
+    else dur = Math.round(diff/60000) + " mnt";
+    
+    if(!db.history) db.history = [];
+    db.history.unshift({ u: ses.fullname || ses.nama, in: new Date(ses.loginAt).toLocaleString('id-ID'), d: dur });
+    sDB();
+  }
+  ses=null;
+  document.getElementById('vmain').classList.remove('on');
+  document.getElementById('vlogin').style.display='flex';
+  document.getElementById('sb-av').innerHTML='AD';document.getElementById('sb-av').className='uav a';document.getElementById('sb-av').style.background='';document.getElementById('sb-av').style.border='';
+  document.getElementById('li-n').value='';document.getElementById('li-p').value='';
+  document.getElementById('li-p').type='password';document.getElementById('pe1').className='ti ti-eye';
+  document.getElementById('lbtn').disabled=false;document.getElementById('lbtn').innerHTML='<i class="ti ti-login" style="margin-right:5px"></i>MASUK';
+  document.getElementById('lerr').classList.remove('on');
+  document.querySelectorAll('.ni').forEach(x=>x.classList.remove('on','lk'));
+  document.querySelector('.ni').classList.add('on');
+  document.getElementById('btn-imp').disabled=false;
+}
+
+function cM(id){document.getElementById(id).classList.remove('on');}
+document.querySelectorAll('.mbo').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on');}));
+
+function gn(pg,el){
+  if(el.classList.contains('lk')){ntf('Hanya Admin yang dapat mengakses Pengaturan.','er');return;}
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
+  document.getElementById('pg-'+pg).classList.add('on');
+  el.classList.add('on');
+  currPg=pg;
+  document.getElementById('top-search').value='';
+  const tt={dashboard:'Dashboard',penawaran:'Penawaran',invoice:'Invoice',produk:'Produk & Layanan',klien:'Klien',setting:'Pengaturan'};
+  document.getElementById('tb-title').textContent=tt[pg];
+  if(pg==='dashboard')rDash();
+  else if(pg==='penawaran')rPnw();
+  else if(pg==='invoice')rInv();
+  else if(pg==='produk')rProd();
+  else if(pg==='klien')rKlien();
+  else if(pg==='setting')rSetting();
+}
+
+function doSearch(v){
+  if(currPg==='penawaran')rPnw('',v);
+  else if(currPg==='invoice')rInv('',v);
+  else if(currPg==='produk')rProd('',v);
+  else if(currPg==='klien')rKlien(v);
+}
+
+function waDoc(tp, id) {
+  const item = tp === 'pnw' ? db.penawaran.find(x => x.id === id) : db.invoice.find(x => x.id === id);
+  if (!item) return;
+  const client = db.klien.find(k => k.nama === item.klien);
+  if (!client || !client.telp) { ntf('Nomor telepon klien tidak ditemukan atau belum diisi!', 'er'); return; }
+
+  // Bersihkan nomor telepon (hanya angka) dan pastikan format 62
+  let phone = client.telp.replace(/\D/g, '');
+  if (phone.startsWith('0')) phone = '62' + phone.slice(1);
+
+  const { tot } = cGT(item.items, item.disc, item.tax);
+  const pr = db.perusahaan.nama, kl = item.klien, no = item.no, val = fmt(tot);
+  let msg = "";
+
+  // Logika Pesan Berdasarkan Status
+  if (tp === 'inv' && item.status === 'Jatuh Tempo') {
+    msg = `Halo *${kl}*,%0A%0AKami dari *${pr}*.%0A%0AMengingatkan bahwa Invoice *${no}* sebesar *${val}* telah *MELEWATI JATUH TEMPO*.%0A%0AMohon kesediaannya untuk segera melakukan penyelesaian pembayaran agar tidak menghambat proses administrasi. Terima kasih.`;
+  } else if (tp === 'inv' && item.status === 'Lunas') {
+    msg = `Halo *${kl}*,%0A%0AKami dari *${pr}*.%0A%0ATerima kasih, pembayaran untuk Invoice *${no}* sebesar *${val}* telah kami terima dengan baik. Senang bekerja sama dengan Anda!`;
+  } else if (tp === 'pnw' && item.status === 'Disetujui') {
+    msg = `Halo *${kl}*,%0A%0AKami dari *${pr}*.%0A%0ATerima kasih telah menyetujui Penawaran *${no}*. Pesanan Anda akan segera kami siapkan dan kami proses sesuai kesepakatan.`;
+  } else {
+    // Pesan Default untuk status lainnya
+    const typeNm = tp === 'pnw' ? 'Penawaran' : 'Invoice';
+    msg = `Halo *${kl}*,%0A%0AKami dari *${pr}*.%0A%0ABerikut kami sampaikan *${typeNm}* dengan detail:%0ANomor: *${no}*%0ATotal: *${val}*%0A%0AMohon dicek kembali lampiran filenya. Terima kasih.`;
+  }
+
+  window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+}
+
+function rHistory(){
+  const el=document.getElementById('hist-list');if(!el)return;
+  const list = db.history || [];
+  el.innerHTML = list.length ? list.slice(0, 50).map(h => `
+    <div class="urow">
+      <div style="flex:1"><div class="unm2">${h.u}</div><div class="umt">${h.in}</div></div>
+      <div style="text-align:right"><div class="rpill rps" style="background:var(--bk4);color:var(--wh3)">${h.d}</div></div>
+    </div>`).join('') : '<div class="est"><p>Belum ada riwayat aktivitas.</p></div>';
+}
+
+function rDash(){
+  document.getElementById('ds-tp').textContent=db.penawaran.length;
+  document.getElementById('ds-ia').textContent=db.invoice.filter(i=>i.status==='Belum Dibayar').length;
+  document.getElementById('ds-il').textContent=db.invoice.filter(i=>i.status==='Lunas').length;
+  const omz=db.invoice.filter(i=>i.status==='Lunas').reduce((a,i)=>a+cGT(i.items,i.disc,i.tax).tot,0);
+  document.getElementById('ds-omz').textContent=fmt(omz);
+  document.getElementById('nc-p').textContent=db.penawaran.filter(p=>p.status==='Pending').length||'';
+  document.getElementById('nc-i').textContent=db.invoice.filter(i=>i.status!=='Lunas').length||'';
+  
+  // Render Tren Chart
+  const months=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const curM=new Date().getMonth();
+  let chartHtml='';
+  let maxOmz=0;
+  const trends=[];
+  for(let i=4; i>=0; i--){
+    const mIdx=(curM-i+12)%12;
+    const label=months[mIdx];
+    const val=db.invoice.filter(inv=>inv.status==='Lunas' && new Date(inv.tgl).getMonth()===mIdx).reduce((a,inv)=>a+cGT(inv.items,inv.disc,inv.tax).tot,0);
+    trends.push({label, val});
+    if(val>maxOmz) maxOmz=val;
+  }
+  document.getElementById('ds-chart').innerHTML=trends.map(t=>{
+    const h=maxOmz>0?Math.max(5,(t.val/maxOmz)*100):5;
+    return `<div class="bar-col"><div class="bar-wrap" title="${fmt(t.val)}"><div class="bar" style="height:${h}%"></div></div><div class="bar-lbl">${t.label}</div></div>`;
+  }).join('');
+
+  const rc=[...db.penawaran.slice(-5).map(p=>({tp:'PNW',no:p.no,kl:p.klien,tot:cGT(p.items,p.disc,p.tax).tot,st:p.status,tgl:p.tgl})),...db.invoice.slice(-5).map(i=>({tp:'INV',no:i.no,kl:i.klien,tot:cGT(i.items,i.disc,i.tax).tot,st:i.status,tgl:i.tgl}))].sort((a,b)=>b.tgl.localeCompare(a.tgl)).slice(0,10);
+  document.getElementById('dash-tb').innerHTML=rc.map(r=>`<tr><td><span style="font-size:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:.5px;background:${r.tp==='PNW'?'var(--rdm)':'#0D200D'};color:${r.tp==='PNW'?'var(--rd3)':'#4ADE80'}">${r.tp}</span></td><td class="nb">${r.no}</td><td>${r.kl}</td><td class="ac">${fmt(r.tot)}</td><td>${sPill(r.st)}</td><td style="color:var(--wh4)">${r.tgl}</td></tr>`).join('');
+}
+
+function rPnw(fv,sv){
+  let l=db.penawaran;
+  if(fv)l=l.filter(p=>p.status===fv);
+  if(sv)l=l.filter(p=>p.klien.toLowerCase().includes(sv)||p.no.toLowerCase().includes(sv));
+  const ca=isA();
+  document.getElementById('pnw-tb').innerHTML=l.length?l.map(p=>{const{tot}=cGT(p.items,p.disc,p.tax);return`<tr><td class="nb">${p.no}</td><td>${p.klien}</td><td style="color:var(--wh4)">${p.tgl}</td><td class="ac">${fmt(tot)}</td><td>${sPill(p.status)}</td><td><div class="abs">${ca?`<button class="ib ibe" onclick="ePnw(${p.id})" title="Edit"><i class="ti ti-edit"></i></button>`:''}<button class="ib ibi" onclick="invFromPnw('${p.no}')" title="Buat Invoice"><i class="ti ti-receipt-2"></i></button><button class="ib ibp" onclick="pdfById('pnw',${p.id})" title="PDF"><i class="ti ti-file-export"></i></button><button class="ib" style="background:#25D366;color:#fff" onclick="waDoc('pnw',${p.id})" title="Kirim WA"><i class="ti ti-brand-whatsapp"></i></button>${ca?`<button class="ib ibd" onclick="cDel('penawaran',${p.id})" title="Hapus"><i class="ti ti-trash"></i></button>`:''}</div></td></tr>`;}).join(''):`<tr><td colspan="6"><div class="est"><i class="ti ti-file-off"></i><p>Belum ada penawaran</p></div></td></tr>`;
+}
+
+function rInv(fv,sv){
+  let l=db.invoice;
+  if(fv)l=l.filter(i=>i.status===fv);
+  if(sv)l=l.filter(i=>i.klien.toLowerCase().includes(sv)||i.no.toLowerCase().includes(sv));
+  const ca=isA();
+  document.getElementById('inv-tb').innerHTML=l.length?l.map(inv=>{const{tot}=cGT(inv.items,inv.disc,inv.tax);return`<tr><td class="nb">${inv.no}</td><td><span class="rb">${inv.refPnw||'—'}</span></td><td>${inv.klien}</td><td style="color:var(--wh4)">${inv.tgl}</td><td class="ac">${fmt(tot)}</td><td>${sPill(inv.status)}</td><td><div class="abs">${ca?`<button class="ib ibe" onclick="eInv(${inv.id})" title="Edit"><i class="ti ti-edit"></i></button>`:''}<button class="ib ibp" onclick="pdfById('inv',${inv.id})" title="PDF"><i class="ti ti-file-export"></i></button><button class="ib" style="background:#25D366;color:#fff" onclick="waDoc('inv',${inv.id})" title="Kirim WA"><i class="ti ti-brand-whatsapp"></i></button>${ca?`<button class="ib ibd" onclick="cDel('invoice',${inv.id})" title="Hapus"><i class="ti ti-trash"></i></button>`:''}</div></td></tr>`;}).join(''):`<tr><td colspan="7"><div class="est"><i class="ti ti-receipt-off"></i><p>Belum ada invoice</p></div></td></tr>`;
+}
+
+function rProd(fv,sv){
+  let l=db.produk;if(fv)l=l.filter(p=>p.kat===fv);
+  if(sv)l=l.filter(p=>p.nama.toLowerCase().includes(sv.toLowerCase())||(p.desc&&p.desc.toLowerCase().includes(sv.toLowerCase())));
+  const cc={Cetak:'ctc',Desain:'ctd',Pemasangan:'ctp'};
+  document.getElementById('pg-prod').innerHTML=l.length?l.map(p=>`<div class="pc"><span class="ctag ${cc[p.kat]||''}">${p.kat}</span><div class="pn">${p.nama}</div><div class="pd">${p.desc||'—'}</div><div><span class="pp">${fmt(p.harga)}</span> <span class="pu">/ ${p.sat}</span></div><div class="pf">${isA()?`<button class="ib ibe" onclick="eProd(${p.id})"><i class="ti ti-edit"></i></button><button class="ib ibd" onclick="cDel('produk',${p.id})"><i class="ti ti-trash"></i></button>`:'<span style="font-size:11px;color:var(--wh4)">Lihat saja</span>'}</div></div>`).join(''):`<div style="grid-column:1/-1"><div class="est"><i class="ti ti-packages"></i><p>Belum ada produk</p></div></div>`;
+}
+
+function rKlien(sv){
+  let l=db.klien;if(sv)l=l.filter(k=>k.nama.toLowerCase().includes(sv));
+  const cs=['#CC1414','#2563EB','#16A34A','#D97706','#7C3AED','#DB2777'];
+  document.getElementById('pg-klien-g').innerHTML=l.length?l.map((k,i)=>`<div class="kc"><div class="kav" style="background:${cs[i%cs.length]}22;color:${cs[i%cs.length]};border:1px solid ${cs[i%cs.length]}44">${k.nama.slice(0,2).toUpperCase()}</div><div style="flex:1;min-width:0"><div class="kn">${k.nama}</div><div class="ki"><i class="ti ti-map-pin" style="font-size:11px;vertical-align:-1px;margin-right:2px"></i>${k.alamat||'—'}</div><div class="ki"><i class="ti ti-phone" style="font-size:11px;vertical-align:-1px;margin-right:2px"></i>${k.telp||'—'}</div>${k.cat?`<div class="knt">${k.cat}</div>`:''}</div><div style="display:flex;flex-direction:column;gap:4px">${isA()?`<button class="ib ibe" onclick="eKlien(${k.id})"><i class="ti ti-edit"></i></button><button class="ib ibd" onclick="cDel('klien',${k.id})"><i class="ti ti-trash"></i></button>`:''}</div></div>`).join(''):`<div style="grid-column:1/-1"><div class="est"><i class="ti ti-users-off"></i><p>Belum ada klien</p></div></div>`;
+}
+
+function rSetting(){
+  if(!isA()){document.getElementById('set-content').innerHTML=`<div class="est" style="margin-top:40px"><i class="ti ti-lock"></i><p>Hanya Admin yang dapat mengakses Pengaturan.</p></div>`;return;}
+  const p=db.perusahaan,t=db.template;
+  document.getElementById('set-content').innerHTML=`
+  <div class="tabs">
+    <div class="tab on" onclick="sTb(0,this)">Profil Perusahaan</div>
+    <div class="tab" onclick="sTb(1,this)">Template Dokumen</div>
+    <div class="tab" onclick="sTb(2,this)">Pengguna</div>
+    <div class="tab" onclick="sTb(3,this)">Log Aktivitas</div>
+    <div class="tab" onclick="sTb(4,this)">Backup</div>
+  </div>
+  <div class="tpanel on" id="tp-0">
+    <div class="sgrid2">
+      <div class="scd2">
+        <h3><i class="ti ti-building"></i>Identitas Perusahaan</h3>
+        <div class="fg"><label>Nama Perusahaan</label><input type="text" id="cp-nm" value="${p.nama}" oninput="livePerush()"></div>
+        <div class="fg"><label>Singkatan / Brand</label><input type="text" id="cp-sg" value="${p.singkatan}" oninput="livePerush()"></div>
+        <div class="fg"><label>Tagline</label><input type="text" id="cp-tg" value="${p.tagline||''}" placeholder="Tagline perusahaan..."></div>
+        <div class="fg"><label>Alamat Lengkap</label><textarea id="cp-al" style="min-height:70px">${p.alamat}</textarea></div>
+        <button class="btn br bs" style="margin-top:4px" onclick="savePerush()"><i class="ti ti-device-floppy"></i>Simpan Profil</button>
+      </div>
+      <div class="scd2">
+        <h3><i class="ti ti-address-book"></i>Kontak & Online</h3>
+        <div class="fg"><label><i class="ti ti-phone" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i>Telepon</label><input type="text" id="cp-tp" value="${p.telepon}" placeholder="08..."></div>
+        <div class="fg"><label><i class="ti ti-mail" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i>Email</label><input type="email" id="cp-em" value="${p.email}" placeholder="email@..."></div>
+        <div class="fg"><label><i class="ti ti-world" style="font-size:12px;vertical-align:-1px;margin-right:3px"></i>Website</label><input type="text" id="cp-wb" value="${p.website}" placeholder="www.rzp.co.id"></div>
+        <div class="dv"></div>
+        <div class="info-row"><i class="ti ti-phone"></i><span style="color:var(--wh4);font-size:11px;min-width:60px">Telepon</span><span class="info-val" id="pv-tp">${p.telepon}</span></div>
+        <div class="info-row"><i class="ti ti-mail"></i><span style="color:var(--wh4);font-size:11px;min-width:60px">Email</span><span class="info-val" id="pv-em">${p.email}</span></div>
+        <div class="info-row"><i class="ti ti-world"></i><span style="color:var(--wh4);font-size:11px;min-width:60px">Website</span><span class="info-val" id="pv-wb">${p.website}</span></div>
+        <button class="btn br bs" style="margin-top:10px" onclick="saveKontak()"><i class="ti ti-device-floppy"></i>Simpan Kontak</button>
+      </div>
+    </div>
+  </div>
+  <div class="tpanel" id="tp-1">
+    <div class="sgrid2">
+      <div class="scd2">
+        <h3><i class="ti ti-palette"></i>Tampilan Dokumen</h3>
+        <div style="font-size:10px;font-weight:700;color:var(--wh4);letter-spacing:1.2px;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;margin-bottom:6px">Warna Aksen</div>
+        <div class="clr-row">
+          ${[['#CC1414','Merah'],['#1A56DB','Biru'],['#047857','Hijau'],['#D97706','Amber'],['#7C3AED','Ungu'],['#DB2777','Pink'],['#0E7490','Teal'],['#111827','Hitam']].map(([c,n])=>`<div class="clr-sw${t.aksen===c?' on':''}" style="background:${c}" onclick="setAksen('${c}',this)" title="${n}"></div>`).join('')}
+        </div>
+        <div style="font-size:10px;font-weight:700;color:var(--wh4);letter-spacing:1.2px;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;margin-bottom:6px;margin-top:12px">Font Dokumen</div>
+        <div class="font-row">
+          ${['Arial','Times New Roman','Helvetica','Georgia','Verdana'].map(f=>`<div class="font-btn${t.font===f?' on':''}" style="font-family:${f}" onclick="setFont('${f}',this)">${f}</div>`).join('')}
+        </div>
+        <div class="dv"></div>
+        <div class="fg"><label>Catatan Footer</label><textarea id="tpl-ft" style="min-height:60px">${t.footerNote}</textarea></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <input type="checkbox" id="tpl-ttd" ${t.showTtd?'checked':''} onchange="db.template.showTtd=this.checked;updPrev()">
+          <label for="tpl-ttd" style="font-size:12px;color:var(--wh3)">Tampilkan kolom tanda tangan</label>
+        </div>
+        <div class="fr" id="ttd-fields" style="${t.showTtd?'':'opacity:.4;pointer-events:none'}">
+          <div class="fg"><label>Nama Penanda Tangan</label><input type="text" id="tpl-tnm" value="${t.ttdNama||''}" placeholder="Nama..."></div>
+          <div class="fg"><label>Jabatan</label><input type="text" id="tpl-tjb" value="${t.ttdJabatan||''}" placeholder="Direktur..."></div>
+        </div>
+        <button class="btn br bs" onclick="saveTpl()"><i class="ti ti-device-floppy"></i>Simpan Template</button>
+      </div>
+      <div class="scd2">
+        <h3><i class="ti ti-eye"></i>Preview Dokumen</h3>
+        <div class="prev-box" id="prev-doc" style="--prev-accent:${t.aksen}"></div>
+      </div>
+    </div>
+  </div>
+  <div class="tpanel" id="tp-2">
+    <div class="scd2">
+      <h3><i class="ti ti-users"></i>Manajemen Pengguna</h3>
+      <div id="usr-list"></div>
+      <button class="btn bo bs" style="margin-top:10px" onclick="document.getElementById('m-usr').classList.add('on');['nu-n','nu-fn','nu-p'].forEach(x=>document.getElementById(x).value='');document.getElementById('nu-rl').value='Pegawai'"><i class="ti ti-plus"></i>Tambah Pengguna</button>
+    </div>
+  </div>
+  <div class="tpanel" id="tp-3">
+    <div class="scd2" style="max-width:500px">
+      <h3><i class="ti ti-history"></i>Riwayat Login & Durasi</h3>
+      <div id="hist-list"></div>
+    </div>
+  </div>
+  <div class="tpanel" id="tp-4">
+    <div class="scd2" style="max-width:400px">
+      <h3><i class="ti ti-database-export"></i>Backup & Restore</h3>
+      <p style="font-size:12px;color:var(--wh3);margin-bottom:12px">Export semua data ke file JSON atau import dari backup.</p>
+      <div style="display:flex;gap:8px"><button class="btn bo bs" onclick="exportJSON()"><i class="ti ti-download"></i>Export JSON</button><button class="btn bo bs" onclick="importJSON()"><i class="ti ti-upload"></i>Import JSON</button></div>
+    </div>
+  </div>`;
+  rUsr();updPrev();
+  document.getElementById('tpl-ttd').addEventListener('change',function(){document.getElementById('ttd-fields').style.cssText=this.checked?'':'opacity:.4;pointer-events:none';updPrev();});
+  document.getElementById('tpl-ft').addEventListener('input',updPrev);
+  document.getElementById('tpl-tnm').addEventListener('input',updPrev);
+  document.getElementById('tpl-tjb').addEventListener('input',updPrev);
+  rHistory();
+}
+
+function sTb(i,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.tpanel').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('tp-'+i).classList.add('on');
+  if(i===1)updPrev();
+  if(i===3)rHistory();
+}
+
+function livePerush(){
+  const sg=document.getElementById('cp-sg').value||'RZP';
+  document.getElementById('sb-brand').textContent=sg;
+}
+
+function savePerush(){
+  db.perusahaan.nama=document.getElementById('cp-nm').value;
+  db.perusahaan.singkatan=document.getElementById('cp-sg').value;
+  db.perusahaan.tagline=document.getElementById('cp-tg').value;
+  db.perusahaan.alamat=document.getElementById('cp-al').value;
+  document.getElementById('sb-brand').textContent=db.perusahaan.singkatan||'RZP';
+  sDB();ntf('Profil perusahaan disimpan!');updPrev();
+}
+
+function saveKontak(){
+  db.perusahaan.telepon=document.getElementById('cp-tp').value;
+  db.perusahaan.email=document.getElementById('cp-em').value;
+  db.perusahaan.website=document.getElementById('cp-wb').value;
+  document.getElementById('pv-tp').textContent=db.perusahaan.telepon;
+  document.getElementById('pv-em').textContent=db.perusahaan.email;
+  document.getElementById('pv-wb').textContent=db.perusahaan.website;
+  sDB();ntf('Kontak berhasil disimpan!');
+}
+
+function setAksen(c,el){
+  db.template.aksen=c;
+  document.querySelectorAll('.clr-sw').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  sDB();updPrev();
+}
+
+function setFont(f,el){
+  db.template.font=f;
+  document.querySelectorAll('.font-btn').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  sDB();updPrev();
+}
+
+function saveTpl(){
+  db.template.footerNote=document.getElementById('tpl-ft').value;
+  db.template.showTtd=document.getElementById('tpl-ttd').checked;
+  db.template.ttdNama=document.getElementById('tpl-tnm').value;
+  db.template.ttdJabatan=document.getElementById('tpl-tjb').value;
+  sDB();ntf('Template berhasil disimpan!');updPrev();
+}
+
+function updPrev(){
+  const el=document.getElementById('prev-doc');if(!el)return;
+  const p=db.perusahaan,t=db.template;
+  const ac=t.aksen||'#CC1414',fn=t.font||'Arial';
+  const ttd=t.showTtd?`<div style="margin-top:14px;display:flex;justify-content:flex-end"><div style="text-align:center;border-top:1px solid #ccc;padding-top:6px;min-width:130px;font-size:11px;color:#666"><div style="font-weight:700;color:#111">${t.ttdNama||'_____________'}</div><div>${t.ttdJabatan||'Jabatan'}</div></div></div>`:'';
+  el.style.fontFamily=fn;
+  el.style.setProperty('--prev-accent',ac);
+  el.innerHTML=`
+    <div class="prev-hdr">
+      <div><div class="prev-brand" style="color:${ac};font-family:${fn}">${p.singkatan||'RZP'}</div><div style="font-size:10px;color:#888;letter-spacing:1px;text-transform:uppercase">${p.nama}</div></div>
+      <div class="prev-doctype"><h4 style="color:#111;font-family:${fn}">Penawaran</h4><div class="prev-no" style="color:${ac}">PNW/RZP/2025/001</div></div>
+    </div>
+    <div class="prev-meta">
+      <div class="prev-meta-item"><label>Kepada</label><strong>PT Klien Contoh</strong></div>
+      <div class="prev-meta-item"><label>Tanggal</label><strong>${new Date().toLocaleDateString('id-ID')}</strong></div>
+      <div class="prev-meta-item"><label>Status</label><strong>Pending</strong></div>
+    </div>
+    <div style="font-size:10px;font-weight:700;background:${ac};color:#fff;padding:5px 8px;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">Item Penawaran</div>
+    <div class="prev-row"><span>Cetak Banner 10 m²</span><span style="font-weight:700">Rp 350.000</span></div>
+    <div class="prev-row"><span>Pemasangan 3 titik</span><span style="font-weight:700">Rp 225.000</span></div>
+    <div style="margin-top:8px">
+      <div class="prev-total"><span>Subtotal</span><span>Rp 575.000</span></div>
+      <div class="prev-total"><span>Diskon (5%)</span><span>- Rp 28.750</span></div>
+      <div class="prev-total"><span>PPN (11%)</span><span>+ Rp 59.881</span></div>
+      <div class="prev-grand" style="color:${ac}"><span>TOTAL</span><span>Rp 606.131</span></div>
+    </div>
+    ${ttd}
+    <div class="prev-footer">
+      <div>${p.nama}</div>
+      <div>${[p.telepon,p.email,p.website].filter(Boolean).join(' · ')}</div>
+      ${t.footerNote?`<div style="margin-top:4px;font-style:italic">${t.footerNote}</div>`:''}
+    </div>`;
+}
+
+function rUsr(){
+  const el=document.getElementById('usr-list');if(!el)return;
+  el.innerHTML=db.users.map(u=>`<div class="urow">${fAv(u)}<div style="flex:1;min-width:0"><div class="unm2">${u.fullname||u.nama}<span class="abg ${u.role==='Admin'?'aba':'abs2'}">${u.role}</span></div><div class="umt">@${u.nama}</div></div><div style="display:flex;gap:4px"><button class="ib ibe" onclick="oCp(${u.id})" title="Ganti Sandi"><i class="ti ti-key"></i></button>${u.role!=='Admin'||db.users.filter(x=>x.role==='Admin').length>1?`<button class="ib ibd" onclick="cDel('user',${u.id})" title="Hapus"><i class="ti ti-trash"></i></button>`:''}</div></div>`).join('');
+}
+
+function oCp(id){document.getElementById('chp-id').value=id;document.getElementById('chp-n').value='';document.getElementById('chp-c').value='';document.getElementById('m-chp').classList.add('on');}
+function saveChp(){
+  const id=parseInt(document.getElementById('chp-id').value);
+  const np=document.getElementById('chp-n').value,cp=document.getElementById('chp-c').value;
+  if(!np){ntf('Sandi tidak boleh kosong!','er');return;}
+  if(np!==cp){ntf('Konfirmasi sandi tidak cocok!','er');return;}
+  const idx=db.users.findIndex(x=>x.id===id);if(idx===-1)return;
+  db.users[idx].pass=np;sDB();cM('m-chp');ntf('Kata sandi berhasil diubah!');
+}
+function saveUsr(){
+  const n=document.getElementById('nu-n').value.trim(),fn=document.getElementById('nu-fn').value.trim(),p=document.getElementById('nu-p').value,rl=document.getElementById('nu-rl').value;
+  if(!n||!p){ntf('Nama pengguna dan sandi wajib diisi!','er');return;}
+  if(db.users.find(u=>u.nama.toLowerCase()===n.toLowerCase())){ntf('Nama pengguna sudah ada!','er');return;}
+  db.users.push({id:Math.max(0,...db.users.map(u=>u.id))+1,nama:n,fullname:fn||n,pass:p,role:rl});
+  sDB();cM('m-usr');ntf('Pengguna ditambahkan!');rUsr();
+}
+
+function fKlSel(){
+  const o='<option value="">Pilih Klien...</option>'+db.klien.map(k=>`<option value="${k.nama}">${k.nama}</option>`).join('');
+  document.getElementById('pnw-kl').innerHTML=o;
+  document.getElementById('inv-kl').innerHTML=o;
+}
+function fPnwRef(){
+  document.getElementById('inv-ref').innerHTML='<option value="">-- Pilih nomor penawaran (opsional) --</option>'+db.penawaran.map(p=>`<option value="${p.no}">${p.no} — ${p.klien}</option>`).join('');
+}
+function fDlProd(){
+  document.getElementById('dl-prod').innerHTML=db.produk.map(p=>`<option value="${p.nama}">`).join('');
+}
+function rAv(u,id){
+  const el=document.getElementById(id);if(!el)return;
+  if(u.photo){el.innerHTML=`<img src="${u.photo}">`;el.style.background='none';el.style.border='none';}
+  else{el.innerHTML=(u.fullname||u.nama||'??').slice(0,2).toUpperCase();el.style.background='';el.style.border='';}
+  el.className=(id==='sb-av'?'uav':'uua')+' '+(u.role==='Admin'?'a':'s');
+}
+const fAv=u=>u.photo?`<div class="uua"><img src="${u.photo}"></div>`:`<div class="uua ${u.role==='Admin'?'a':'s'}">${(u.fullname||u.nama||'??').slice(0,2).toUpperCase()}</div>`;
+function uPF(el){
+  const f=el.files[0];if(!f)return;
+  const mS=500*1024; // Limit 500 KB
+  if(f.size>mS){
+    ntf('Ukuran file terlalu besar! Maksimal 500KB.','er');
+    el.value='';return;
+  }
+  const r=new FileReader();r.onload=e=>{const b=e.target.result,i=db.users.findIndex(x=>x.id===ses.id);db.users[i].photo=b;ses.photo=b;sDB();rAv(ses,'sb-av');ntf('Foto profil diperbarui!');if(currPg==='setting')rUsr();};r.readAsDataURL(f);
+}
+function autoP(el,px){
+  const p=db.produk.find(x=>x.nama===el.value);
+  if(p){const tr=el.closest('tr');const ins=tr.querySelectorAll('input');ins[5].value=p.harga;}
+  cT(px);
+}
+
+function updPnwForm(){
+  const t=document.getElementById('pnw-tp').value, table=document.getElementById('pnw-rows').closest('table');
+  table.querySelectorAll('.pnw-dim').forEach(d=>d.style.display=t==='Advertising'?'':'none');
+  const thNm = document.getElementById('pnw-th-nm');
+  if(thNm) thNm.style.width = t==='Advertising'?'30%':'54%';
+  document.getElementById('pnw-loc-group').style.display=t==='Proyek Bangunan'?'':'none';
+  document.getElementById('pnw-trm-group').style.display=t==='Proyek Bangunan'?'':'none';
+}
+function updInvForm(){
+  const t=document.getElementById('inv-tp').value, table=document.getElementById('inv-rows').closest('table');
+  table.querySelectorAll('.pnw-dim').forEach(d=>d.style.display=t==='Advertising'?'':'none');
+  const thNm = document.getElementById('inv-th-nm');
+  if(thNm) thNm.style.width = t==='Advertising'?'30%':'54%';
+  document.getElementById('inv-loc-group').style.display=t==='Proyek Bangunan'?'':'none';
+  document.getElementById('inv-trm-group').style.display=t==='Proyek Bangunan'?'':'none';
+}
+function addRow(px){
+  const t=document.getElementById(px+'-tp').value, d=t==='Advertising'?'':'display:none';
+  const tb=document.getElementById(px+'-rows'), tr=document.createElement('tr');
+  tr.innerHTML=`<td><input type="text" list="dl-prod" placeholder="Nama produk/jasa" oninput="autoP(this,'${px}')"></td><td class="pnw-dim" style="${d}"><input type="number" value="0" min="0" style="width:42px" oninput="cT('${px}')"></td><td class="pnw-dim" style="${d}"><input type="number" value="0" min="0" style="width:42px" oninput="cT('${px}')"></td><td class="pnw-dim" style="${d}"><input type="number" value="0" min="0" style="width:42px" oninput="cT('${px}')"></td><td><input type="number" value="1" min="1" style="width:50px" oninput="cT('${px}')"></td><td><input type="number" value="0" min="0" style="width:85px" oninput="cT('${px}')"></td><td><span class="sub-c">Rp 0</span></td><td><i class="ti ti-trash" onclick="this.closest('tr').remove();cT('${px}')"></i></td>`;
+  tb.appendChild(tr);
+  cT(px);
+}
+function setRows(px,items,tp='Advertising'){
+  const d=tp==='Advertising'?'':'display:none';
+  document.getElementById(px+'-rows').innerHTML='';
+  items.forEach(item=>{
+    const tb=document.getElementById(px+'-rows'),tr=document.createElement('tr');
+    tr.innerHTML=`<td><input type="text" list="dl-prod" value="${item.nama}" oninput="autoP(this,'${px}')"></td><td class="pnw-dim" style="${d}"><input type="number" value="${item.p||0}" min="0" style="width:42px" oninput="cT('${px}')"></td><td class="pnw-dim" style="${d}"><input type="number" value="${item.l||0}" min="0" style="width:42px" oninput="cT('${px}')"></td><td class="pnw-dim" style="${d}"><input type="number" value="${item.t||0}" min="0" style="width:42px" oninput="cT('${px}')"></td><td><input type="number" value="${item.qty}" min="1" style="width:50px" oninput="cT('${px}')"></td><td><input type="number" value="${item.harga}" min="0" style="width:85px" oninput="cT('${px}')"></td><td><span class="sub-c">${fmt(gRS(item))}</span></td><td><i class="ti ti-trash" onclick="this.closest('tr').remove();cT('${px}')"></i></td>`;
+    tb.appendChild(tr);
+  });
+  cT(px);
+}
+function gRows(px){return Array.from(document.getElementById(px+'-rows').querySelectorAll('tr')).map(tr=>{const ins=tr.querySelectorAll('input');return{nama:ins[0]?.value.trim()||'',p:parseFloat(ins[1]?.value)||0,l:parseFloat(ins[2]?.value)||0,t:parseFloat(ins[3]?.value)||0,qty:parseFloat(ins[4]?.value)||0,harga:parseFloat(ins[5]?.value)||0};}).filter(i=>i.nama);}
+function cT(px){
+  const its=gRows(px),dc=parseFloat(document.getElementById(px+'-dc').value)||0,tx=parseFloat(document.getElementById(px+'-tx').value)||0;
+  const{s,d,t,tot}=cGT(its,dc,tx);
+  document.getElementById(px+'-sub').textContent=fmt(s);
+  document.getElementById(px+'-dl').textContent=`Diskon (${dc}%)`;document.getElementById(px+'-dv').textContent='- '+fmt(d);
+  document.getElementById(px+'-tl').textContent=`PPN (${tx}%)`;document.getElementById(px+'-tv').textContent='+ '+fmt(t);
+  document.getElementById(px+'-tot').textContent=fmt(tot);
+  const rows = document.getElementById(px+'-rows').querySelectorAll('tr');
+  its.forEach((it, i) => {
+    if(rows[i]) rows[i].querySelector('.sub-c').textContent = fmt(gRS(it));
+  });
+}
+
+function openPnw(){
+  document.getElementById('pnw-eid').value='';document.getElementById('mpnw-t').textContent='Penawaran Baru';
+  document.getElementById('mpnw-no').textContent=gPnw();fKlSel();
+  document.getElementById('pnw-tgl').value=new Date().toISOString().split('T')[0];
+  document.getElementById('pnw-tp').value='Advertising';updPnwForm();
+  document.getElementById('pnw-st').value='Pending';document.getElementById('pnw-cat').value='';document.getElementById('pnw-loc').value='';document.getElementById('pnw-trm').value='';
+  document.getElementById('pnw-dc').value=0;document.getElementById('pnw-tx').value=11;
+  document.getElementById('pnw-rows').innerHTML='';addRow('pnw');
+  document.getElementById('pnw-att').value='';document.getElementById('pnw-prev').innerHTML='';
+  document.getElementById('m-pnw').classList.add('on');
+}
+async function hAtt(el, px){
+  const f=el.files[0]; if(!f) return;
+  const options = { maxSizeMB: 0.1, maxWidthOrHeight: 1024, useWebWorker: true };
+  try {
+    const compressedFile = await imageCompression(f, options);
+    const r=new FileReader();
+    r.onload=e=>{
+      document.getElementById(px+'-att').value=e.target.result;
+      document.getElementById(px+'-prev').innerHTML=`<div style="position:relative"><img src="${e.target.result}" style="width:60px;height:60px;object-fit:cover;border-radius:4px;border:1px solid #333"><div style="position:absolute;top:-5px;right:-5px;background:var(--err);color:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;cursor:pointer" onclick="if(confirm('Hapus lampiran?')){this.parentElement.remove();document.getElementById('${px}-att').value=''}">✕</div></div>`;
+    };
+    r.readAsDataURL(compressedFile);
+  } catch (error) {
+    console.error(error);
+    ntf('Gagal memproses file.','er');
+  }
+}
+function ePnw(id){
+  const p=db.penawaran.find(x=>x.id===id);if(!p)return;
+  document.getElementById('pnw-eid').value=id;document.getElementById('mpnw-t').textContent='Edit Penawaran';
+  document.getElementById('mpnw-no').textContent=p.no;fKlSel();
+  document.getElementById('pnw-kl').value=p.klien;document.getElementById('pnw-tgl').value=p.tgl;
+  document.getElementById('pnw-tp').value=p.tipe||'Advertising';updPnwForm();
+  document.getElementById('pnw-st').value=p.status;document.getElementById('pnw-cat').value=p.cat||'';document.getElementById('pnw-loc').value=p.loc||'';document.getElementById('pnw-trm').value=p.termin||'';
+  document.getElementById('pnw-dc').value=p.disc;document.getElementById('pnw-tx').value=p.tax;
+  document.getElementById('pnw-att').value=p.att||'';
+  document.getElementById('pnw-prev').innerHTML=p.att?`<img src="${p.att}" style="width:60px;height:60px;object-fit:cover;border-radius:4px">`:'';
+  setRows('pnw',p.items,p.tipe||'Advertising');document.getElementById('m-pnw').classList.add('on');
+}
+async function savePnw(){
+  if(isSyncing) return;
+  const kl=document.getElementById('pnw-kl').value,tgl=document.getElementById('pnw-tgl').value;
+  if(!kl||!tgl){ntf('Klien dan tanggal wajib diisi!','er');return;}
+  
+  const its=gRows('pnw');
+  if(its.length === 0 || its.some(i => i.qty <= 0)){
+    ntf('Item penawaran tidak boleh kosong dan jumlah (qty) harus lebih dari 0!','er');
+    return;
+  }
+
+  const eid=parseInt(document.getElementById('pnw-eid').value)||0;
+  const data={tipe:document.getElementById('pnw-tp').value,klien:kl,tgl,status:document.getElementById('pnw-st').value,disc:parseFloat(document.getElementById('pnw-dc').value)||0,tax:parseFloat(document.getElementById('pnw-tx').value)||0,cat:document.getElementById('pnw-cat').value,loc:document.getElementById('pnw-loc').value,termin:document.getElementById('pnw-trm').value,att:document.getElementById('pnw-att').value,items:its};
+  
+  if(eid){
+    const idx=db.penawaran.findIndex(x=>x.id===eid);
+    db.penawaran[idx]={...db.penawaran[idx], ...data};
+  } else {
+    const no=gPnw();
+    if(db.penawaran.some(x => x.no === no)) {
+      ntf('Nomor penawaran ' + no + ' sudah ada! Mohon coba lagi.', 'er');
+      return;
+    }
+    db.penawaran.push({id:db.seqPnw, no, ...data});
+    db.seqPnw++;
+  }
+  await sDB(); // Tunggu proses sinkronisasi selesai
+  ntf('Data Penawaran disimpan!');
+  cM('m-pnw'); rPnw(); rDash(); fPnwRef();
+}
+
+function openInv(refNo){
+  document.getElementById('inv-eid').value='';document.getElementById('minv-t').textContent='Invoice Baru';
+  document.getElementById('minv-no').textContent=gInv();fKlSel();fPnwRef();
+  document.getElementById('inv-tp').value='Advertising';updInvForm();
+  const td=new Date(),du=new Date(td);du.setDate(du.getDate()+14);
+  document.getElementById('inv-tgl').value=td.toISOString().split('T')[0];
+  document.getElementById('inv-due').value=du.toISOString().split('T')[0];
+  document.getElementById('inv-st').value='Belum Dibayar';document.getElementById('inv-cat').value='';document.getElementById('inv-loc').value='';document.getElementById('inv-trm').value='';
+  document.getElementById('inv-dc').value=0;document.getElementById('inv-tx').value=11;
+  document.getElementById('inv-att').value='';document.getElementById('inv-prev').innerHTML='';
+  document.getElementById('inv-rows').innerHTML='';document.getElementById('inv-ref').value='';
+  if(refNo){document.getElementById('inv-ref').value=refNo;loadPnw(refNo);}else{addRow('inv');}
+  document.getElementById('m-inv').classList.add('on');
+}
+function invFromPnw(no){openInv(no);}
+function loadPnw(no){
+  if(!no)return;const p=db.penawaran.find(x=>x.no===no);if(!p)return;
+  document.getElementById('inv-kl').value=p.klien;document.getElementById('inv-dc').value=p.disc;document.getElementById('inv-tx').value=p.tax;
+  document.getElementById('inv-tp').value=p.tipe||'Advertising';updInvForm();
+  document.getElementById('inv-loc').value=p.loc||'';document.getElementById('inv-trm').value=p.termin||'';document.getElementById('inv-cat').value=p.cat||'';
+  setRows('inv',p.items,p.tipe||'Advertising');ntf(`Data dari ${no} dimuat!`,'nf');
+}
+function eInv(id){
+  const inv=db.invoice.find(x=>x.id===id);if(!inv)return;
+  document.getElementById('inv-eid').value=id;document.getElementById('minv-t').textContent='Edit Invoice';
+  document.getElementById('minv-no').textContent=inv.no;fKlSel();fPnwRef();
+  document.getElementById('inv-kl').value=inv.klien;document.getElementById('inv-tgl').value=inv.tgl;
+  document.getElementById('inv-tp').value=inv.tipe||'Advertising';updInvForm();
+  document.getElementById('inv-due').value=inv.due||'';document.getElementById('inv-st').value=inv.status;
+  document.getElementById('inv-cat').value=inv.cat||'';document.getElementById('inv-loc').value=inv.loc||'';document.getElementById('inv-trm').value=inv.termin||'';
+  document.getElementById('inv-att').value=inv.att||'';
+  document.getElementById('inv-prev').innerHTML=inv.att?`<img src="${inv.att}" style="width:60px;height:60px;object-fit:cover;border-radius:4px">`:'';
+  document.getElementById('inv-dc').value=inv.disc;document.getElementById('inv-tx').value=inv.tax;
+  document.getElementById('inv-ref').value=inv.refPnw||'';
+  setRows('inv',inv.items,inv.tipe||'Advertising');document.getElementById('m-inv').classList.add('on');
+}
+async function saveInv(){
+  if(isSyncing) return;
+  const kl=document.getElementById('inv-kl').value,tgl=document.getElementById('inv-tgl').value;
+  if(!kl||!tgl){ntf('Klien dan tanggal wajib diisi!','er');return;}
+  const its=gRows('inv');if(!its.length){ntf('Minimal satu item!','er');return;}
+  const eid=parseInt(document.getElementById('inv-eid').value)||0;
+  const data={tipe:document.getElementById('inv-tp').value,klien:kl,tgl,due:document.getElementById('inv-due').value,status:document.getElementById('inv-st').value,disc:parseFloat(document.getElementById('inv-dc').value)||0,tax:parseFloat(document.getElementById('inv-tx').value)||0,refPnw:document.getElementById('inv-ref').value,cat:document.getElementById('inv-cat').value,loc:document.getElementById('inv-loc').value,termin:document.getElementById('inv-trm').value,att:document.getElementById('inv-att').value,items:its};
+  
+  if(eid){
+    const idx=db.invoice.findIndex(x=>x.id===eid);
+    db.invoice[idx]={...db.invoice[idx], ...data};
+  } else {
+    const no=gInv();
+    if(db.invoice.some(x => x.no === no)) {
+      ntf('Nomor invoice ' + no + ' sudah ada! Mohon coba lagi.', 'er');
+      return;
+    }
+    db.invoice.push({id:db.seqInv, no, ...data});
+    db.seqInv++;
+  }
+  await sDB();
+  ntf('Data Invoice disimpan!');
+  cM('m-inv'); rInv(); rDash();
+}
+
+function openProd(){if(!isA()){ntf('Hanya Admin.','er');return;}document.getElementById('prod-eid').value='';document.getElementById('mprod-t').textContent='Tambah Produk';['pr-nm','pr-ds','pr-st'].forEach(x=>document.getElementById(x).value='');document.getElementById('pr-hg').value='';document.getElementById('pr-kt').value='Cetak';document.getElementById('m-prod').classList.add('on');}
+function eProd(id){const p=db.produk.find(x=>x.id===id);if(!p)return;document.getElementById('prod-eid').value=id;document.getElementById('mprod-t').textContent='Edit Produk';document.getElementById('pr-nm').value=p.nama;document.getElementById('pr-ds').value=p.desc||'';document.getElementById('pr-hg').value=p.harga;document.getElementById('pr-st').value=p.sat;document.getElementById('pr-kt').value=p.kat;document.getElementById('m-prod').classList.add('on');}
+async function saveProd(){
+  if(isSyncing) return;
+  const nm=document.getElementById('pr-nm').value.trim(),hg=parseFloat(document.getElementById('pr-hg').value)||0;
+  if(!nm||!hg){ntf('Nama dan harga wajib diisi!','er');return;}
+  const eid=parseInt(document.getElementById('prod-eid').value)||0;
+  if(db.produk.some(p => p.nama.toLowerCase() === nm.toLowerCase() && p.id !== eid)) { ntf('Produk dengan nama ini sudah ada!', 'er'); return; }
+  const data={nama:nm,desc:document.getElementById('pr-ds').value,harga:hg,sat:document.getElementById('pr-st').value||'pcs',kat:document.getElementById('pr-kt').value};
+  if(eid){const idx=db.produk.findIndex(x=>x.id===eid);db.produk[idx]={...db.produk[idx],...data};ntf('Produk diperbarui!');}
+  else{db.produk.push({id:Math.max(0,...db.produk.map(p=>p.id))+1,...data});ntf('Produk ditambahkan!');}
+  await sDB();cM('m-prod');rProd();
+}
+
+function openKlien(){document.getElementById('kl-eid').value='';document.getElementById('mklien-t').textContent='Tambah Klien';['kl-nm','kl-al','kl-tp','kl-em','kl-ct'].forEach(x=>document.getElementById(x).value='');document.getElementById('m-klien').classList.add('on');}
+function eKlien(id){const k=db.klien.find(x=>x.id===id);if(!k)return;document.getElementById('kl-eid').value=id;document.getElementById('mklien-t').textContent='Edit Klien';document.getElementById('kl-nm').value=k.nama;document.getElementById('kl-al').value=k.alamat||'';document.getElementById('kl-tp').value=k.telp||'';document.getElementById('kl-em').value=k.email||'';document.getElementById('kl-ct').value=k.cat||'';document.getElementById('m-klien').classList.add('on');}
+async function saveKlien(){
+  if(isSyncing) return;
+  const nm=document.getElementById('kl-nm').value.trim();if(!nm){ntf('Nama klien wajib diisi!','er');return;}
+  const eid=parseInt(document.getElementById('kl-eid').value)||0;
+  if(db.klien.some(k => k.nama.toLowerCase() === nm.toLowerCase() && k.id !== eid)) { ntf('Klien dengan nama ini sudah ada!', 'er'); return; }
+  const data={nama:nm,alamat:document.getElementById('kl-al').value,telp:document.getElementById('kl-tp').value,email:document.getElementById('kl-em').value,cat:document.getElementById('kl-ct').value};
+  if(eid){const idx=db.klien.findIndex(x=>x.id===eid);db.klien[idx]={...db.klien[idx],...data};ntf('Klien diperbarui!');}
+  else{db.klien.push({id:Math.max(0,...db.klien.map(k=>k.id))+1,...data});ntf('Klien ditambahkan!');}
+  await sDB();cM('m-klien');rKlien();fKlSel();
+}
+
+let _dc=null;
+function cDel(tp,id){
+  const msgs={penawaran:'Hapus penawaran ini?',invoice:'Hapus invoice ini?',produk:'Hapus produk ini?',klien:'Hapus klien ini?',user:'Hapus pengguna ini?'};
+  document.getElementById('del-msg').textContent=msgs[tp]||'Hapus data ini?';
+  _dc=async()=>{
+    if(tp==='penawaran') {
+      try {
+        await fetch(`http://localhost:3000/api/penawaran/${id}`, { method: 'DELETE' });
+        db.penawaran=db.penawaran.filter(x=>x.id!==id);
+      } catch(e) { ntf('Gagal hapus penawaran di server','er'); return; }
+    }
+    else if(tp==='invoice') {
+      try {
+        await fetch(`http://localhost:3000/api/invoice/${id}`, { method: 'DELETE' });
+        db.invoice=db.invoice.filter(x=>x.id!==id);
+      } catch(e) { ntf('Gagal hapus invoice di server','er'); return; }
+    }
+    else if(tp==='produk') {
+      try {
+        await fetch(`http://localhost:3000/api/produk/${id}`, { method: 'DELETE' });
+        db.produk=db.produk.filter(x=>x.id!==id);
+      } catch(e) { ntf('Gagal menghapus di server','er'); return; }
+    }
+    else if(tp==='klien') {
+      try {
+        await fetch(`http://localhost:3000/api/klien/${id}`, { method: 'DELETE' });
+        db.klien=db.klien.filter(x=>x.id!==id);
+      } catch(e) { ntf('Gagal menghapus klien di server','er'); return; }
+    }
+    else if(tp==='user')db.users=db.users.filter(x=>x.id!==id);
+    
+    // Sekarang semua master & transaksi sudah pakai API spesifik
+    localStorage.setItem('rzp-v3',JSON.stringify(db));
+    
+    cM('m-del');ntf('Data dihapus!');
+    if(tp==='penawaran')rPnw();else if(tp==='invoice')rInv();else if(tp==='produk')rProd();else if(tp==='klien')rKlien();else rUsr();
+    rDash();
+  };
+  document.getElementById('del-ok').onclick=_dc;
+  document.getElementById('m-del').classList.add('on');
+}
+
+function pdfById(tp,id){
+  const item=tp==='pnw'?db.penawaran.find(x=>x.id===id):db.invoice.find(x=>x.id===id);
+  if(!item)return;
+  const{s,d,t,tot}=cGT(item.items,item.disc,item.tax);
+  const p=db.perusahaan,tpl=db.template;
+  const ac=tpl.aksen||'#CC1414',fn=tpl.font||'Arial';
+  const rows=item.items.map(i=>`<tr><td>${i.nama}${ (item.tipe==='Advertising' && (i.p||i.l||i.t)) ? `<div style="font-size:10px;color:#888;margin-top:2px">Ukuran: ${i.p||0} x ${i.l||0} x ${i.t||0}</div>` : '' }</td><td align="center">${i.qty}</td><td align="right">Rp ${i.harga.toLocaleString('id-ID')}</td><td align="right">Rp ${Math.round(gRS(i)).toLocaleString('id-ID')}</td></tr>`).join('');
+  const ttd=tpl.showTtd?`<div style="margin-top:20px;display:flex;justify-content:flex-end"><div style="text-align:center;border-top:1px solid #ccc;padding-top:8px;min-width:150px"><div style="font-weight:700">${tpl.ttdNama||'_____________'}</div><div style="font-size:11px;color:#888">${tpl.ttdJabatan||'Jabatan'}</div></div></div>`:'';
+  const locH = (item.tipe==='Proyek Bangunan' && item.loc) ? `<div class="mi"><label>Lokasi Proyek</label><strong>${item.loc}</strong></div>` : '';
+  const trmH = (item.tipe==='Proyek Bangunan' && item.termin) ? `<div class="mi"><label>Termin Pembayaran</label><strong>${item.termin}</strong></div>` : '';
+  const attH = item.att ? `<div class="mi"><label>Lampiran</label><a href="${item.att}" target="_blank" style="color:${ac};text-decoration:none"><strong>Lihat File</strong></a></div>` : '';
+  const w=window.open('','_blank');
+  if(!w){ ntf('Gagal membuka jendela cetak! Izinkan popup di browser Anda.','er'); return; }
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${item.no}</title>
+  <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:${fn},Arial,sans-serif;color:#111;font-size:13px;padding:32px;max-width:750px;margin:0 auto}
+  .hdr{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid ${ac};padding-bottom:14px;margin-bottom:18px}
+  .brand{font-size:24px;font-weight:900;letter-spacing:1px;color:${ac}}.brand-sub{font-size:10px;letter-spacing:2px;color:#666;text-transform:uppercase;margin-top:2px}
+  .doctype{text-align:right}.doctype h2{font-size:20px;font-weight:900;letter-spacing:2px;text-transform:uppercase}.doctype .no{font-size:13px;font-weight:700;color:${ac};margin-top:3px}
+  .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px;padding:12px;background:#f8f8f8;border:1px solid #eee;border-radius:4px}
+  .mi label{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:#888;display:block;margin-bottom:2px}.mi strong{font-size:12px;font-weight:700}
+  table.it{width:100%;border-collapse:collapse;margin:12px 0}table.it th{background:${ac};color:#fff;padding:7px 9px;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+  table.it td{padding:7px 9px;border-bottom:1px solid #eee}table.it tr:hover td{background:#fafafa}
+  .tot{margin-left:auto;width:240px;margin-top:6px}.tr{display:flex;justify-content:space-between;padding:4px 0;font-size:11px;border-bottom:1px solid #eee;color:#555}
+  .tg{font-size:15px;font-weight:900;color:${ac};padding:8px 0 0;border:none}
+  .ft{margin-top:20px;padding-top:12px;border-top:1px solid #ddd;text-align:center;font-size:10px;color:#888}</style></head>
+  <body>
+  <div class="hdr">
+    <div><div class="brand">${p.singkatan||'RZP'}</div><div class="brand-sub">${p.nama}</div></div>
+    <div class="doctype"><h2>${tp==='pnw'?(item.tipe||'Penawaran'):'Invoice'}</h2><div class="no">${item.no}</div>${item.refPnw?`<div style="font-size:10px;color:#888;margin-top:2px">Ref: ${item.refPnw}</div>`:''}</div>
+  </div>
+  <div class="meta">
+    <div class="mi"><label>Kepada</label><strong>${item.klien}</strong></div>
+    <div class="mi"><label>Tanggal</label><strong>${item.tgl}</strong></div>
+    ${item.due?`<div class="mi"><label>Jatuh Tempo</label><strong>${item.due}</strong></div>`:''}
+    <div class="mi"><label>Status</label><strong>${item.status}</strong></div>
+    ${locH}
+    ${trmH}
+    ${attH}
+  </div>
+  <table class="it"><thead><tr><th>Produk / Jasa</th><th align="center">Qty</th><th align="right">Harga</th><th align="right">Subtotal</th></tr></thead><tbody>${rows}</tbody></table>
+  <div class="tot">
+    <div class="tr"><span>Subtotal</span><span>Rp ${Math.round(s).toLocaleString('id-ID')}</span></div>
+    <div class="tr"><span>Diskon (${item.disc}%)</span><span>- Rp ${Math.round(d).toLocaleString('id-ID')}</span></div>
+    <div class="tr"><span>PPN (${item.tax}%)</span><span>+ Rp ${Math.round(t).toLocaleString('id-ID')}</span></div>
+    <div class="tr tg"><span>TOTAL</span><span>Rp ${Math.round(tot).toLocaleString('id-ID')}</span></div>
+  </div>
+  ${ttd}
+  <div class="ft">
+    <div style="font-weight:700;font-size:11px">${p.nama}</div>
+    <div>${[p.alamat].filter(Boolean).join('')}</div>
+    <div>${[p.telepon&&('Telp: '+p.telepon),p.email&&('Email: '+p.email),p.website&&('Web: '+p.website)].filter(Boolean).join(' &nbsp;·&nbsp; ')}</div>
+    ${tpl.footerNote?`<div style="margin-top:5px;font-style:italic">${tpl.footerNote}</div>`:''}
+  </div>
+  <script>window.onload=function(){window.print();window.onafterprint=function(){window.close()}}<\/script></body></html>`);
+  w.document.close();
+}
+
+function doPdf(px){
+  const eid=parseInt(document.getElementById(px==='pnw'?'pnw-eid':'inv-eid').value)||0;
+  if(eid)pdfById(px,eid);else ntf('Simpan dokumen dulu sebelum export PDF.','er');
+}
+
+function exportJSON(){const b=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`rzp-backup-${new Date().toISOString().split('T')[0]}.json`;a.click();ntf('Data berhasil diexport!');}
+function importJSON(){if(!isA()){ntf('Hanya Admin.','er');return;}const i=document.createElement('input');i.type='file';i.accept='.json';i.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.klien&&d.penawaran&&d.invoice){db=d;sDB();rDash();ntf('Data berhasil diimport!');}else ntf('Format tidak valid!','er');}catch{ntf('File tidak valid!','er');}};r.readAsText(f);};i.click();}
+
+document.getElementById('sc-pnw').onclick=openPnw;
+document.getElementById('sc-inv').onclick=()=>openInv();
+</script>
