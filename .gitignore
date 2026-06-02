@@ -1,0 +1,66 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+package-lock.json
+yarn.lock
+
+# Testing
+coverage/
+
+# Production
+.next/
+out/
+dist/
+build/
+
+# Misc
+.DS_Store
+*.pem
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Debug
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Backups & Temp Files
+*.backup
+*.bak
+backup-*.json
+rzp-backup-*.json
+*.tmp
+.cache/
+
+# Local database
+database.json
+database.db
+*.db
+
+# Sensitive files
+.env.local
+secrets.json
+.credentials
